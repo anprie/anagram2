@@ -3,7 +3,7 @@ import re
 class Anagram:
 
     def __init__(self, word, language):
-        self.word = word
+        self.word = "".join([l.lower() for l in word if l.isalpha()])
         self.language = language
         self.letters = None
 
@@ -12,7 +12,7 @@ class Anagram:
 
     def set_letters(self):
         letters = {}
-        L = [l.lower() for l in self.word if l.isalpha()]
+        L = list(self.word)
         for l in L:
             if l in letters:
                 letters[l] +=1
