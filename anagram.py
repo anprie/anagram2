@@ -4,7 +4,8 @@ class Anagram:
 
     def __init__(self, word, language):
         self.word = "".join([l.lower() for l in word if l.isalpha()])
-        self.language = language
+        self.file = language
+        self.language = language.split(sep='.', maxsplit=1)[0]
         self.letters = None
 
     def __str__(self):
