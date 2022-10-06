@@ -16,6 +16,11 @@ class TestAnagram(unittest.TestCase):
         word = anagram.word
         self.assertEqual(word, 'lowercase')
 
+    def test_inventory(self):
+        anagram = Anagram('dcbaABCD', 'german.txt')
+        inventory = anagram.inventory
+        self.assertEqual(inventory,['a','b','c','d'])
+
 
 
 if __name__ == '__main__':
