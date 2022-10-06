@@ -12,6 +12,9 @@ class Anagram:
     def __str__(self):
         return f"word: {self.word}\ninventory: {self.inventory}\nlanguage: {self.language}"
 
+    def loweralpha(self, word):
+        return "".join([l.lower() for l in word if l.isalpha()])
+
     def letters(self, word):
         letters = dict([(l,word.count(l)) for l in word])
         return letters
@@ -19,14 +22,18 @@ class Anagram:
     def count(self, word):
         inventory = self.inventory
         count = [0 for l in inventory]
-        for l in word:
+        for l in self.loweralpha(word):
             for i in range(len(self.inventory)):
                 if l == self.inventory[i]:
                     count[i]+=1
                     break
-        print("count = ", count)
         return count
-        
+
+    def difference(self, word):
+        w_count = self.count(word)
+        i_count = self.count(self.inventory)
+        print([i_count[i]-w_count[i] for i in range(len(i_count))])
+        return [i_count[i]-w_count[i] for i in range(len(i_count))]
 
 
 
