@@ -13,13 +13,7 @@ class Anagram:
         return f"word: {self.word}\ninventory: {self.inventory}\nlanguage: {self.language}"
 
     def letters(self, word):
-        letters = {}
-        L = list(word)
-        for l in L:
-            if l in letters:
-                letters[l] +=1
-            else:
-                letters[l] = 1
+        letters = dict([(l,word.count(l)) for l in word])
         return letters
 
     def count(self, word):
