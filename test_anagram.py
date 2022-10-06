@@ -31,10 +31,19 @@ class TestAnagram(unittest.TestCase):
         self.assertEqual(inventory,['a','b','c','d'])
 
     def test_count(self):
-        anagram = Anagram('countletters', 'german.txt')
+        word = 'countletters'
+        anagram = Anagram(word, 'german.txt')
         print(anagram)
-        count = anagram.count()
+        count = anagram.count(word)
         self.assertEqual(count, [1,2,1,1,1,1,1,3,1])
+
+    def test_letters(self):
+        word = 'countletters'
+        anagram = Anagram(word, 'german.txt')
+        print(anagram)
+        letters = anagram.letters(word)
+        self.assertEqual(letters, {'c':1,'e':2,'l':1,'n':1,'o':1,'r':1,'s':1,'t':3,'u':1})
+        
 
 
 
