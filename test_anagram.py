@@ -43,8 +43,13 @@ class TestAnagram(unittest.TestCase):
         print(anagram)
         letters = anagram.letters(word)
         self.assertEqual(letters, {'c':1,'e':2,'l':1,'n':1,'o':1,'r':1,'s':1,'t':3,'u':1})
-        
 
+    def test_difference(self):
+        anagram = Anagram('dcbaABCD', 'german.txt')
+        print(anagram)
+        remaining = anagram.difference('cbDa')
+        self.assertEqual(remaining,[1,1,1,1])
+        
 
 
 if __name__ == '__main__':
