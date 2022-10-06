@@ -2,38 +2,33 @@ import re
 
 class Anagram:
 
-    def __init__(self, word, language):
-        loweralpha = [l.lower() for l in word if l.isalpha()]
-        self.word = "".join(loweralpha)
-        self.file = language
+    def __init__(self, word, language_file):
+        self.word = word
+        self.file = language_file
         self.language = language.split(sep='.', maxsplit=1)[0]
-        self.inventory = sorted(list(set(loweralpha)))
 
     def __str__(self):
-        return f"word: {self.word}\ninventory: {self.inventory}\nlanguage: {self.language}"
+        return f"word: {self.word}\nfile: {self.file}\nlanguage: {self.language}"
 
-    def loweralpha(self, word):
-        return "".join([l.lower() for l in word if l.isalpha()])
-
-    def letters(self, word):
-        letters = dict([(l,word.count(l)) for l in word])
-        return letters
-
-    def count(self, word):
-        inventory = self.inventory
-        count = [0 for l in inventory]
-        for l in self.loweralpha(word):
-            for i in range(len(self.inventory)):
-                if l == self.inventory[i]:
-                    count[i]+=1
-                    break
-        return count
-
-    def difference(self, word):
-        w_count = self.count(word)
-        i_count = self.count(self.inventory)
-        print([i_count[i]-w_count[i] for i in range(len(i_count))])
-        return [i_count[i]-w_count[i] for i in range(len(i_count))]
-
+    def read(self):
+        # declare three empty sets (onset, nucleus, coda)
+        # open file with clusters
+        #################################
+        # lines look like this:
+        # mfp 0 0 1
+        # äu 1 1 1
+        # st 1 0 1
+        # str 1 0 0
+        #################################
+        # parse lines: 
+        #   split into cluster, o, n, c
+        #   create Word object of cluster
+        #   test if cluster letters are subset of word letters
+        #   if yes:
+        #       1 1 1 -> nucleus
+        #       1 0 0 -> onset
+        #       0 0 1 -> coda
+        #       1 0 1 -> coda and onset
+        pass
 
 
