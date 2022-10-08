@@ -23,12 +23,22 @@ class TestWord(unittest.TestCase):
     def test_difference(self):
         word = Word('aaabbcd')
         word2 = Word('abc')
-        difference = word.difference(word2)
-        self.assertEqual(difference, {'a':2, 'b':1, 'c':0, 'd':1})
+
+        difference = word.difference(word)
+        self.assertEqual(difference, {'a':0, 'b':0, 'c':0, 'd':0})
+
+        difference1 = word.difference(word2)
+        self.assertEqual(difference1, {'a':2, 'b':1, 'c':0, 'd':1})
 
         difference2 = word2.difference(word)
         self.assertEqual(difference2, {'a':-2, 'b':-1, 'c':0, 'd':-1})
  
+    def test_lsum(self):
+        word = Word('aaabbcd')
+        word2 = Word('abc')
+        
+        lsum = word.lsum(word2)
+        self.assertEqual(lsum, {'a':4, 'b':3, 'c':2, 'd':1})
 
 if __name__ == '__main__':
     unittest.main()
