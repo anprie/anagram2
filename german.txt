@@ -3,24 +3,24 @@ a 1 1 1
 bb 0 0 1
 bl 1 0 1
 b 1 0 1
-br 1
+br 1 0 0
 cc 0 0 1
 ch 1 0 1
-chr 1
+chr 1 0 0
 ck 0 0 1
-cr 1
+cr 1 0 0
 c 1 0 1
 cl 1 0 1
 dd 0 0 1
-dr 1
+dr 1 0 0
 d 1 0 1
 e 1 1 1
 ff 0 0 1
-fr 1
+fr 1 0 0
 fl 1 0 1
 f 1 0 1
 gg 0 0 1
-gr 1
+gr 1 0 0
 gl 1 0 1
 g 1 0 1
 h 1 0 1
@@ -39,9 +39,9 @@ hmt 0 0 1
 ht 0 0 1
 hst 0 0 1
 i 1 1 1
-j 1
+j 1 0 0
 kk 0 0 1
-kr 1
+kr 1 0 0
 kl 1 0 1
 k 1 0 1
 ll 0 0 1
@@ -53,30 +53,30 @@ nn 0 0 1
 ö 1 1 1
 o 1 1 1
 pp 0 0 1
-pr 1
+pr 1 0 0
 pf 1 0 1
 pfl 1 0 1
 ph 1 0 1
 pl 1 0 1
 p 1 0 1
-qu 1
+qu 1 0 0
 q 1 0 1
 rr 0 0 1
 r 1 0 1
 ss 0 0 1
 sp 1 0 1
-spr 1
+spr 1 0 0
 st 1 0 1
-str 1
+str 1 0 0
 sch 1 0 1
 schl 1 0 1
-schr 1
-schn 1
-schm 1
+schr 1 0 0
+schn 1 0 0
+schm 1 0 0
 sc 1 0 1
 s 1 0 1
 tt 0 0 1
-tr 1
+tr 1 0 0
 tz 0 0 1
 t 1 0 1
 u 1 1 1
@@ -188,3 +188,37 @@ mschst 0 0 1
 nschst 0 0 1
 bschst 0 0 1
 tschst 0 0 1
+a 1 1 1
+aa 1 1 1
+ä 1 1 1
+au 1 1 1
+äu 1 1 1
+ao 1 1 1
+ae 1 1 1
+aeu 1 1 1
+aeo 1 1 1
+aea 1 1 1
+äo 1 1 1
+eu 1 1 1
+ei 1 1 1
+eo 1 1 1
+ou 1 1 1
+oo 1 1 1
+ee 1 1 1
+ui 1 1 1
+iu 1 1 1
+ia 1 1 1
+io 1 1 1
+e 1 1 1
+u 1 1 1
+o 1 1 1
+i 1 1 1
+ü 1 1 1
+ue 1 1 1
+oe 1 1 1
+ö 1 1 1
+ua 1 1 1
+oa 1 1 1
+uo 1 1 1
+ua 1 1 1
+ie 1 1 1
