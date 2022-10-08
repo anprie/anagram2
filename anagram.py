@@ -15,15 +15,15 @@ class Anagram:
     def subtract(self,word):
         result = copy.deepcopy(self.count)
         not_in_inventory = []
-        for l in word.word:
+        for key in word.letters.keys():
             contains_letter = False
             for i in range(len(self.inventory)):
-                if l == self.inventory[i]:
-                    result[i]-=1
+                if key == self.inventory[i]:
+                    result[i]-= word.letters[key]
                     contains_letter = True
                     break
             if not contains_letter:
-                not_in_inventory.append(l)
+                not_in_inventory.append(key)
         return (result, not_in_inventory)
 
 
