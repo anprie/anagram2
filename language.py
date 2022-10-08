@@ -14,21 +14,24 @@ class Language:
         return f"language: {self.name}\nfile: {self.file}\nonset: {self.onset}\nnucleus: {self.nucleus}\ncoda: {self.coda}"
 
     def read(self):
-        # open file 
-        #################################
-        # lines look like this: cluster with distributional information
-        # mfp 0 0 1
-        # äu 1 1 1
-        # st 1 0 1
-        # str 1 0 0
-        #################################
-        # parse lines: 
-        #   split into cluster, o, n, c
-        #   create Word object of cluster
-        #   test if cluster letters are subset of word letters
-        #   if yes:
-        #       1 1 1 -> nucleus
-        #       1 0 0 -> onset
-        #       0 0 1 -> coda
-        #       1 0 1 -> coda and onset
-        pass
+        with open(self.file) as file:
+            lines = 0
+            for line in file.readlines():
+                lines += 1
+                (cluster, o, n, c) = [a.strip() for a in line.split(' ')]
+                print('cluster: ', cluster)
+                print('o:', o)
+                print('n:', n)
+                print('c:', c)
+                if n == '1':
+                    self.nucleus.add(cluster)
+                    continue
+                if o == '1':
+                    self.onset.add(cluster)
+                if c == '1':
+                    self.coda.add(cluster)
+                print('nucleus: ', self.nucleus)
+                print('onset: ', self.onset)
+                print('coda: ', self.coda)
+        return lines
+
