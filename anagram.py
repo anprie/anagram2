@@ -3,10 +3,11 @@ import copy
 
 class Anagram:
 
-    def __init__(self, word, language_file):
+    def __init__(self, word, language):
         self.word = word
         self.inventory = sorted(word.letters.keys())
         self.count = [word.letters[key] for key in sorted(word.letters.keys())]
+        self.language = language
 
     def __str__(self):
         return f"word: {self.word.word}\ninventory: {self.inventory}\noccurrences of letters in inventory: {self.count}"
