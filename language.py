@@ -19,10 +19,6 @@ class Language:
             for line in file.readlines():
                 lines += 1
                 (cluster, o, n, c) = [a.strip() for a in line.split(' ')]
-                print('cluster: ', cluster)
-                print('o:', o)
-                print('n:', n)
-                print('c:', c)
                 if n == '1':
                     self.nucleus.add(cluster)
                     continue
@@ -30,8 +26,5 @@ class Language:
                     self.onset.add(cluster)
                 if c == '1':
                     self.coda.add(cluster)
-                print('nucleus: ', self.nucleus)
-                print('onset: ', self.onset)
-                print('coda: ', self.coda)
         return lines
 
