@@ -1,11 +1,12 @@
 import unittest
 from anagram import Anagram
 from word import Word
+from language import Language
 class TestAnagram(unittest.TestCase):
 
     def test_inventory(self):
         anagram = Anagram(Word('bcbcba'), Language('smurf.txt'))
-        self.assertEqual(anagram.inventory,['a','b','c','d'])
+        self.assertEqual(anagram.inventory,['a','b','c'])
 
     def test_count(self):
         anagram = Anagram(Word('bcbcba'), Language('smurf.txt'))
@@ -19,8 +20,10 @@ class TestAnagram(unittest.TestCase):
         self.assertEqual(spare, ['x','y'])
 
     def test_language(self):
-        anagram = Anagram(Word('bcbcba'), Language('smurf.txt'))
-        self.assertEqual(self.language.nucleus, {'u'})
+        language = Language('smurf.txt')
+        language.read()
+        anagram = Anagram(Word('bcbcba'), language)
+        self.assertEqual(anagram.language.nucleus, {'u'})
 
 if __name__ == '__main__':
     unittest.main()
