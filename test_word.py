@@ -16,6 +16,12 @@ class TestWord(unittest.TestCase):
         word = Word('Ümläuteß')
         self.assertEqual(word.word, 'ümläuteß')
 
+        word = Word('')
+        self.assertEqual(word.word, '')
+
+        word = Word(':?&')
+        self.assertEqual(word.word, '')
+
     def test_letters(self):
         word = Word('countletters')
         self.assertEqual(word.letters, {'c':1,'e':2,'l':1,'n':1,'o':1,'r':1,'s':1,'t':3,'u':1})
