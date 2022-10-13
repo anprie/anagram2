@@ -11,7 +11,7 @@ class Word:
     def __str__(self):
         return f"word: {self.word}\nhas letters: {self.letters}\n"
 
-    def difference(self,word):
+    def ldiff(self,word):
         l1 = copy.deepcopy(self.letters)
         l2 = word.letters
         for key in l2.keys():
@@ -31,4 +31,6 @@ class Word:
                 l1[key] = l2[key]
         return l1
 
+    def contains(self,word):
+        pass
 

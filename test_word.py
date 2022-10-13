@@ -20,18 +20,18 @@ class TestWord(unittest.TestCase):
         word = Word('countletters')
         self.assertEqual(word.letters, {'c':1,'e':2,'l':1,'n':1,'o':1,'r':1,'s':1,'t':3,'u':1})
 
-    def test_difference(self):
+    def test_ldiff(self):
         word = Word('aaabbcd')
         word2 = Word('abc')
 
-        difference = word.difference(word)
-        self.assertEqual(difference, {'a':0, 'b':0, 'c':0, 'd':0})
+        diff = word.ldiff(word)
+        self.assertEqual(diff, {'a':0, 'b':0, 'c':0, 'd':0})
 
-        difference1 = word.difference(word2)
-        self.assertEqual(difference1, {'a':2, 'b':1, 'c':0, 'd':1})
+        diff1 = word.ldiff(word2)
+        self.assertEqual(diff1, {'a':2, 'b':1, 'c':0, 'd':1})
 
-        difference2 = word2.difference(word)
-        self.assertEqual(difference2, {'a':-2, 'b':-1, 'c':0, 'd':-1})
+        diff2 = word2.ldiff(word)
+        self.assertEqual(diff2, {'a':-2, 'b':-1, 'c':0, 'd':-1})
  
     def test_lsum(self):
         word = Word('aaabbcd')
