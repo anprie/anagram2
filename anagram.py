@@ -9,6 +9,7 @@ class Anagram:
         self.inventory = sorted(word.letters.keys())
         self.count = [word.letters[key] for key in sorted(word.letters.keys())]
         self.language = copy.deepcopy(language)
+        self.syllables = set()
 
     def __str__(self):
         return f"word: {self.word.word}\ninventory: {self.inventory}\noccurrences of letters in inventory: {self.count}"
@@ -34,24 +35,23 @@ class Anagram:
                 if not self.word.contains(Word(c)):
                     c_set.remove(c)
                     discarded += 1
-        print(discarded, " clusters have been discarded\n")
+        #print(discarded, " clusters have been discarded\n")
         return (self.language.onset, self.language.nucleus, self.language.coda)
 
     def create_syllables(self):
         onset= list(self.language.onset)
         onset.append('')
-        syllables = set()
 
         for o in onset:
             for n in list(self.language.nucleus):
                 # no test if letters of o and n sum up well because they are disjoint
-                syllables.add(Word(o+n))
+                self.syllables.add(Word(o+n))
 
-        for s in list(syllables):
+        for s in list(self.syllables):
             for c in list(self.language.coda):
                 sc = Word(s.word+c)
                 if self.word.contains(sc):
-                    syllables.add(sc)
-        return syllables
+                    self.syllables.add(sc)
+        return self.syllables
 
 
