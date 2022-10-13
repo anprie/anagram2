@@ -28,12 +28,27 @@ class Anagram:
         return (result, not_in_inventory)
 
     def boil_down_language(self):
+        discarded = 0
         for c_set in [self.language.onset, self.language.nucleus, self.language.coda]:
-            for cluster in list(c_set):
-                c = Word(cluster)
-                if not self.word.contains(c):
-                    c_set.remove(cluster)
+            for c in list(c_set):
+                if not self.word.contains(Word(c)):
+                    c_set.remove(c)
+                    discarded += 1
         #print("remaining clusters:\n", self.language.onset, "\n",self.language.nucleus, "\n", self.language.coda, "\n")
-        return
+        print(discarded, " clusters have been discarded\n")
+        return (self.language.onset, self.language.nucleus, self.language.coda)
+
+    def create_syllables(self):
+        pass
+        # put onset clusters and empty string (or placeholder character, for syllables that start with a vowel) into a dict,
+        # values = dict of letters
+        # for nucleus
+        #    if word contains onset + nucleus cluster:
+        #       add entry onsetnucleus: letter dict to dict
+        # if no nucleus has been added:
+        #   remove onset entry from dict
+        # for coda:
+        #   if word contains onsetnucleus + coda
+        #   add entry onsetnucleuscoda
 
 
