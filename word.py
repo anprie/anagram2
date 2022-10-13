@@ -32,5 +32,8 @@ class Word:
         return l1
 
     def contains(self,word):
-        pass
+        diff = self.ldiff(word)
+        if all(v >= 0 for v in diff.values()):
+            return True
+        return False
 

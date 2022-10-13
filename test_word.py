@@ -40,5 +40,17 @@ class TestWord(unittest.TestCase):
         lsum = word.lsum(word2)
         self.assertEqual(lsum, {'a':4, 'b':3, 'c':2, 'd':1})
 
+    def test_contains(self):
+        word = Word('aaabbcd')
+        word2 = Word('abc')
+        
+        w_in_w2 = word.contains(word2)
+        self.assertEqual(w_in_w2, True)
+        
+        w2_in_w = word2.contains(word)
+        self.assertEqual(w2_in_w, False)
+
+        w_in_w = word.contains(word)
+        self.assertEqual(w_in_w, True)
 if __name__ == '__main__':
     unittest.main()
