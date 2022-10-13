@@ -34,21 +34,24 @@ class Anagram:
                 if not self.word.contains(Word(c)):
                     c_set.remove(c)
                     discarded += 1
-        #print("remaining clusters:\n", self.language.onset, "\n",self.language.nucleus, "\n", self.language.coda, "\n")
         print(discarded, " clusters have been discarded\n")
         return (self.language.onset, self.language.nucleus, self.language.coda)
 
     def create_syllables(self):
-        pass
-        # put onset clusters and empty string (or placeholder character, for syllables that start with a vowel) into a dict,
-        # values = dict of letters
-        # for nucleus
-        #    if word contains onset + nucleus cluster:
-        #       add entry onsetnucleus: letter dict to dict
-        # if no nucleus has been added:
-        #   remove onset entry from dict
-        # for coda:
-        #   if word contains onsetnucleus + coda
-        #   add entry onsetnucleuscoda
+        onset= list(self.language.onset)
+        onset.append('')
+        syllables = set()
+
+        for o in onset:
+            for n in list(self.language.nucleus):
+                # no test if letters of o and n sum up well because they are disjoint
+                syllables.add(Word(o+n))
+
+        for s in list(syllables):
+            for c in list(self.language.coda):
+                sc = Word(s.word+c)
+                if self.word.contains(sc):
+                    syllables.add(sc)
+        return syllables
 
 

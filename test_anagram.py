@@ -47,6 +47,16 @@ class TestAnagram(unittest.TestCase):
         self.assertEqual(onset, language.onset)
         self.assertEqual(nucleus, language.nucleus)
         self.assertEqual(coda, language.coda)
+
+    def test_create_syllables(self):
+        language = Language('smurf.txt')
+        language.read()
+        anagram = Anagram(Word('fur'), language)
+        anagram.boil_down_language()
+        syllables = sorted(['fur','ur','uf','fu','urf','fru','ruf','ru','u'])
+        syll = sorted([i.word for i in list(anagram.create_syllables())])
+        self.assertEqual(syllables, syll)
+        
         
 if __name__ == '__main__':
     unittest.main()
