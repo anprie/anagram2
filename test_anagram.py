@@ -2,6 +2,7 @@ import unittest
 from anagram import Anagram
 from word import Word
 from language import Language
+from copy import deepcopy
 class TestAnagram(unittest.TestCase):
 
     def test_inventory(self):
@@ -25,5 +26,27 @@ class TestAnagram(unittest.TestCase):
         anagram = Anagram(Word('bcbcba'), language)
         self.assertEqual(anagram.language.nucleus, {'u'})
 
+    def test_boil_down_language(self):
+        language = Language('smurf.txt')
+        language.read()
+        anagram = Anagram(Word('smurf'), language)
+        (onset, nucleus, coda) = (language.onset, language.nucleus, language.coda)
+        anagram.boil_down_language()
+        self.assertEqual(onset, anagram.language.onset)
+        self.assertEqual(nucleus, anagram.language.nucleus)
+        self.assertEqual(coda, anagram.language.coda)
+
+        anagram2 = Anagram(Word('fur'), language)
+        (onset, nucleus, coda) = (deepcopy(language.onset), deepcopy(language.nucleus), deepcopy(language.coda))
+        anagram2.boil_down_language()
+        self.assertEqual({'f','r','fr'}, anagram2.language.onset)
+        self.assertEqual({'u'}, anagram2.language.nucleus)
+        self.assertEqual({'f','r','rf'}, anagram2.language.coda)
+
+        # language object unchanged
+        self.assertEqual(onset, language.onset)
+        self.assertEqual(nucleus, language.nucleus)
+        self.assertEqual(coda, language.coda)
+        
 if __name__ == '__main__':
     unittest.main()
