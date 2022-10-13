@@ -9,7 +9,7 @@ class Word:
         self.letters = dict([(l,loweralpha.count(l)) for l in loweralpha])
 
     def __str__(self):
-        return f"word: {self.word}\nhas letters: {self.inventory}\n"
+        return f"word: {self.word}\nhas letters: {self.letters}\n"
 
     def difference(self,word):
         l1 = copy.deepcopy(self.letters)
