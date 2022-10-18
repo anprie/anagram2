@@ -47,16 +47,17 @@ class TestWord(unittest.TestCase):
         self.assertEqual(lsum, {'a':4, 'b':3, 'c':2, 'd':1})
 
     def test_contains(self):
-        word = Word('aaabbcd')
+        word = Word('aaaabbbccd')
         word2 = Word('abc')
         
         w_in_w2 = word.contains(word2)
-        self.assertEqual(w_in_w2, True)
+        self.assertEqual(w_in_w2, 2)
         
         w2_in_w = word2.contains(word)
-        self.assertEqual(w2_in_w, False)
+        self.assertEqual(w2_in_w, 0)
 
         w_in_w = word.contains(word)
-        self.assertEqual(w_in_w, True)
+        self.assertEqual(w_in_w, 1)
+
 if __name__ == '__main__':
     unittest.main()

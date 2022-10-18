@@ -33,7 +33,12 @@ class Word:
 
     def contains(self,word):
         diff = self.ldiff(word)
-        if all(v >= 0 for v in diff.values()):
-            return True
-        return False
+        # more occurrences of at least one letter in word than in self.word
+        if not all(v >= 0 for v in diff.values()):
+            return 0
+        # at least one letter has the same count in word and self.word; avoid dividing by 0
+        if 0 in diff.values():
+            return 1
+        # how many times does word fit into self.word, letterwise?
+        return min([self.letters[l]//word.letters[l] for l in word.letters])
 
