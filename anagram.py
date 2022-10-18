@@ -35,23 +35,18 @@ class Anagram:
                 if not self.word.contains(Word(c)):
                     c_set.remove(c)
                     discarded += 1
-        #print(discarded, " clusters have been discarded\n")
         return (self.language.onset, self.language.nucleus, self.language.coda)
 
-    def create_syllables(self):
+    def build_syllables(self):
         onset= list(self.language.onset)
         onset.append('')
+        coda = list(self.language.coda)
 
-        for o in onset:
-            for n in list(self.language.nucleus):
-                # no test if letters of o and n sum up well because they are disjoint
-                self.syllables.add(Word(o+n))
+        on = [Word(o+n) for o in onset for n in list(self.language.nucleus)]
+        onc = [Word(s+c) for c in coda for s in [i.word for i in on] if self.word.contains(Word(s+c))]
 
-        for s in list(self.syllables):
-            for c in list(self.language.coda):
-                sc = Word(s.word+c)
-                if self.word.contains(sc):
-                    self.syllables.add(sc)
+        self.syllables.update(on,onc)
+
         return self.syllables
 
 
