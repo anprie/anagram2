@@ -14,6 +14,7 @@ class Anagram:
     def __str__(self):
         return f"word: {self.word.word}\ninventory: {self.inventory}\noccurrences of letters in inventory: {self.count}"
 
+
     def subtract(self,word):
         result = copy.deepcopy(self.count)
         not_in_inventory = []
@@ -28,6 +29,7 @@ class Anagram:
                 not_in_inventory.append(key)
         return (result, not_in_inventory)
 
+
     def boil_down_language(self):
         discarded = 0
         for c_set in [self.language.onset, self.language.nucleus, self.language.coda]:
@@ -37,16 +39,11 @@ class Anagram:
                     discarded += 1
         return (self.language.onset, self.language.nucleus, self.language.coda)
 
+
     def build_syllables(self):
-        onset= list(self.language.onset)
-        onset.append('')
-        coda = list(self.language.coda)
-
-        on = [Word(o+n) for o in onset for n in list(self.language.nucleus)]
-        onc = [Word(s+c) for c in coda for s in [i.word for i in on] if self.word.contains(Word(s+c))]
-
+        on = {Word(o+n) for o in self.language.onset.union({''}) for n in self.language.nucleus}
+        onc = {Word(s+c) for c in self.language.coda for s in {i.word for i in on} if self.word.contains(Word(s+c))}
         self.syllables.update(on,onc)
-
         return self.syllables
 
 

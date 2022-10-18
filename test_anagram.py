@@ -56,6 +56,7 @@ class TestAnagram(unittest.TestCase):
         syllables = sorted(['fur','ur','uf','fu','urf','fru','ruf','ru','u'])
         syll = sorted([i.word for i in list(anagram.build_syllables())])
         self.assertEqual(syllables, syll)
+        self.assertEqual({'f','r','fr'}, anagram.language.onset)
         
         
 if __name__ == '__main__':
