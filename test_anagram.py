@@ -57,7 +57,18 @@ class TestAnagram(unittest.TestCase):
         syll = sorted([i.word for i in list(anagram.build_syllables())])
         self.assertEqual(syllables, syll)
         self.assertEqual({'f','r','fr'}, anagram.language.onset)
-        
-        
+
+
+    def test_get_slist(self):
+        language = Language('smurf.txt')
+        language.read()
+        anagram = Anagram(Word('furu'), language)
+        anagram.boil_down_language()
+        anagram.build_syllables()
+        s_list = anagram.get_slist()
+        self.assertEqual(['fru', 'fu', 'fur', 'ru', 'ruf', 'u', 'u', 'uf', 'ur', 'urf'], s_list)
+
+
+ 
 if __name__ == '__main__':
     unittest.main()

@@ -47,3 +47,22 @@ class Anagram:
         return self.syllables
 
 
+    def get_slist(self):
+        # use contains to count how many instances of each syllable fit into
+        # the input word
+        s_list = []
+        s_dict = dict([(w.word,w) for w in self.syllables])
+        for s in list(self.syllables):
+            cnt = self.word.contains(s)
+            for i in range(cnt):
+                s_list.append(s.word)
+        return sorted(s_list)
+
+
+    def cat(self,n):
+        # concatenate syllables, building a look-up table to calculate the remaining letters
+        combinations = dict([(s.word.word,s.letters) for s in self.syllables])
+        print("combinations:\n", combinations)
+
+
+
