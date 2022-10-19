@@ -59,15 +59,24 @@ class TestAnagram(unittest.TestCase):
         self.assertEqual({'f','r','fr'}, anagram.language.onset)
 
 
-    def test_get_slist(self):
+    def test_slist(self):
         language = Language('smurf.txt')
         language.read()
         anagram = Anagram(Word('furu'), language)
         anagram.boil_down_language()
         anagram.build_syllables()
-        s_list = anagram.get_slist()
+        s_list = anagram.slist()
         self.assertEqual(['fru', 'fu', 'fur', 'ru', 'ruf', 'u', 'u', 'uf', 'ur', 'urf'], s_list)
 
+    def test_i2syll(self):
+        language = Language('smurf.txt')
+        language.read()
+        anagram = Anagram(Word('furu'), language)
+        anagram.boil_down_language()
+        anagram.build_syllables()
+        s_list = anagram.slist()
+        i2syll = anagram.i2syll(s_list)
+        self.assertEqual(i2syll,{0:'fru',1:'fu',2:'fur',3:'ru',4:'ruf',5:'u',6:'u',7:'uf',8:'ur',9:'urf'})
 
  
 if __name__ == '__main__':
