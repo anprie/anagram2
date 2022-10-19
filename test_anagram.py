@@ -78,6 +78,21 @@ class TestAnagram(unittest.TestCase):
         i2syll = anagram.i2syll(s_list)
         self.assertEqual(i2syll,{0:'fru',1:'fu',2:'fur',3:'ru',4:'ruf',5:'u',6:'u',7:'uf',8:'ur',9:'urf'})
 
+    def test_syll2letters(self):
+        language = Language('smurf.txt')
+        language.read()
+        anagram = Anagram(Word('fur'), language)
+        anagram.boil_down_language()
+        anagram.build_syllables()
+        syll2letters = anagram.syll2letters()
+        syllables = ['fru', 'fu', 'fur', 'ru', 'ruf', 'u', 'uf', 'ur', 'urf']
+        s2l = {'fru':{'f':1,'r':1,'u':1}, 'fu':{'f':1,'u':1},
+        'fur':{'f':1,'r':1,'u':1}, 'ru':{'r':1,'u':1},
+        'ruf':{'f':1,'r':1,'u':1}, 'u':{'u':1}, 'uf':{'f':1,'u':1},
+        'ur':{'r':1,'u':1}, 'urf':{'f':1,'r':1,'u':1}}
+        self.assertEqual(syll2letters,s2l)
+
+
  
 if __name__ == '__main__':
     unittest.main()

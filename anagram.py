@@ -62,13 +62,23 @@ class Anagram:
 
     def i2syll(self,slist):
         # concatenate syllables, building a look-up table to calculate the remaining letters
-        #syll2letters = dict([(s.word,s.letters) for s in self.syllables])
-        #print("syll2letters:\n", syll2letters)
         index2syll = {}
         for i in range(len(slist)):
             index2syll[i] = slist[i]
         # self.index2syll = index2syll?
         return index2syll
 
+    def syll2letters(self):
+        syll2letters = dict([(s.word,s.letters) for s in self.syllables])
+        # self.syll2letters = syll2letters
+        return syll2letters
 
+    def add_comb(self,combinations, itup, j):
+        # look up itups value in combinations (a dict)
+        # look up j's value in combinations (a dict)
+        # new entry in combinations is (itup,j) = sum of both values
+        # we can't use lsum for this because it needs a word -> new function, make lsum use this
+        # itup will be sorted so that we don't calculate each entry more than
+        # once
+        pass
 
