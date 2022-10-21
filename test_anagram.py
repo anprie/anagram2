@@ -92,6 +92,11 @@ class TestAnagram(unittest.TestCase):
         'ur':{'r':1,'u':1}, 'urf':{'f':1,'r':1,'u':1}}
         self.assertEqual(syll2letters,s2l)
 
+    def test_add_kvsum(self):
+        tupdict = {(2,):{'x':1,'y':5,'z':8},(3,):{'y':5}}
+        tupdict = Anagram.add_kvsum(tupdict,(2,),(3,))
+        self.assertEqual(tupdict, {(2,):{'x':1,'y':5,'z':8},(3,):{'y':5},(2,3):{'x':1,'y':10,'z':8}})
+
 
  
 if __name__ == '__main__':

@@ -73,12 +73,8 @@ class Anagram:
         # self.syll2letters = syll2letters
         return syll2letters
 
-    def add_comb(self,combinations, itup, j):
-        # look up itups value in combinations (a dict)
-        # look up j's value in combinations (a dict)
-        # new entry in combinations is (itup,j) = sum of both values
-        # we can't use lsum for this because it needs a word -> new function, make lsum use this
-        # itup will be sorted so that we don't calculate each entry more than
-        # once
-        pass
+    def add_kvsum(tupdict, itup, jtup):
+        # new entry in tupdict is (itup,jtup) = sum of itup's and jtup's entries in tupdict
+        tupdict[itup + jtup] = Word.add(tupdict[itup],tupdict[jtup])
+        return tupdict
 
