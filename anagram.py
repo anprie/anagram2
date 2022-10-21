@@ -30,6 +30,7 @@ class Anagram:
         return (result, not_in_inventory)
 
 
+    # remove all syllables that can't be comprised of the input word's letters
     def boil_down_language(self):
         for c_set in [self.language.onset, self.language.nucleus, self.language.coda]:
             for c in list(c_set):
@@ -38,6 +39,8 @@ class Anagram:
         return (self.language.onset, self.language.nucleus, self.language.coda)
 
 
+    # put onset, nucleus, and coda together to form syllables
+    # add empty string to onset for syllables that start with a vowel
     def build_syllables(self):
         on = {Word(o+n) for o in self.language.onset.union({''}) for n in self.language.nucleus}
         onc = {Word(s+c) for c in self.language.coda for s in {i.word for i in on} if self.word.contains(Word(s+c))}
@@ -45,9 +48,8 @@ class Anagram:
         return self.syllables
 
 
+    # return sorted list where each syllable appears as many times as it fits into the anagram.word.word
     def slist(self):
-        # use contains to count how many instances of each syllable fit into
-        # the input word
         s_list = []
         s_dict = dict([(w.word,w) for w in self.syllables])
         # self.sdict = s_dict?
@@ -58,21 +60,20 @@ class Anagram:
         return sorted(s_list)
 
 
+    # map index to syllable string
     def i2syll(self,slist):
-        # concatenate syllables, building a look-up table to calculate the remaining letters
         index2syll = {}
         for i in range(len(slist)):
             index2syll[i] = slist[i]
-        # self.index2syll = index2syll?
         return index2syll
 
+    # map syllable strings to syllable objects
     def syll2letters(self):
         syll2letters = dict([(s.word,s.letters) for s in self.syllables])
-        # self.syll2letters = syll2letters
         return syll2letters
 
+    # add new entry to dictionary: key = itup,jtup), value= sum of itup's and jtup's entries in tupdict
     def add_kvsum(tupdict, itup, jtup):
-        # new entry in tupdict is (itup,jtup) = sum of itup's and jtup's entries in tupdict
         tupdict[itup + jtup] = Word.add(tupdict[itup],tupdict[jtup])
         return tupdict
 
