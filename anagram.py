@@ -31,12 +31,10 @@ class Anagram:
 
 
     def boil_down_language(self):
-        discarded = 0
         for c_set in [self.language.onset, self.language.nucleus, self.language.coda]:
             for c in list(c_set):
                 if not self.word.contains(Word(c)):
                     c_set.remove(c)
-                    discarded += 1
         return (self.language.onset, self.language.nucleus, self.language.coda)
 
 
