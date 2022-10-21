@@ -46,6 +46,9 @@ class TestWord(unittest.TestCase):
         lsum = word.lsum(word2)
         self.assertEqual(lsum, {'a':4, 'b':3, 'c':2, 'd':1})
 
+        lsum2 = word2.lsum(word)
+        self.assertEqual(lsum2, {'a':4, 'b':3, 'c':2, 'd':1})
+
     def test_contains(self):
         word = Word('aaaabbbccd')
         word2 = Word('abc')

@@ -24,10 +24,7 @@ class Word:
     def add(a,b):
         c = copy.deepcopy(a)
         for key in b.keys():
-            if key in c:
-                c[key] += b[key]
-            else:
-                c[key] = b[key]
+            c[key] = c.get(key,0) + b[key]
         return c
 
 
