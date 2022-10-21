@@ -21,15 +21,19 @@ class Word:
                 l1[key] = -l2[key]
         return l1
 
-    def lsum(self,word):
-        l1 = copy.deepcopy(self.letters)
-        l2 = word.letters
-        for key in l2.keys():
-            if key in l1:
-                l1[key] += l2[key]
+    def add(a,b):
+        c = copy.deepcopy(a)
+        for key in b.keys():
+            if key in c:
+                c[key] += b[key]
             else:
-                l1[key] = l2[key]
-        return l1
+                c[key] = b[key]
+        return c
+
+
+    def lsum(self,word):
+        l = copy.deepcopy(self.letters)
+        return Word.add(l,word.letters)
 
     def contains(self,word):
         diff = self.ldiff(word)
