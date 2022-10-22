@@ -55,12 +55,17 @@ class Anagram:
         return syll2letters
 
     # add new entry to dictionary: key = itup,jtup), value= sum of itup's and jtup's entries in tupdict
-    # TODO: new parameter: letter dictionary of the input word. If v1+v2 is not contained in the input word, don't add the entry!
-    def add_kvsum(tupdict, itup, jtup):
-        tupdict[itup + jtup] = Word.add(tupdict[itup],tupdict[jtup])
+    # if v1+v2 is not contained in word, don't add the entry!
+    def add_kvsum(tupdict, itup, jtup, word):
+        if itup + jtup in tupdict.keys():
+            return tupdict
+
+        vsum = Word.add(tupdict[itup],tupdict[jtup])
+        if word.contains(vsum):
+            tupdict[itup + jtup] = vsum
         return tupdict
 
-    def combine_syllables(self):
+    def combine(self):
         # create dictionary with indices of slist as keys and the corresponding syllable's letter dict as values
         # loop through indices, adding entries to the dictionary
         pass

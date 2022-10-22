@@ -64,11 +64,23 @@ class TestAnagram(unittest.TestCase):
         self.assertEqual(syll2letters,s2l)
 
     def test_add_kvsum(self):
-        tupdict = {(2,):{'x':1,'y':5,'z':8},(3,):{'y':5}}
-        tupdict = Anagram.add_kvsum(tupdict,(2,),(3,))
-        self.assertEqual(tupdict, {(2,):{'x':1,'y':5,'z':8},(3,):{'y':5},(2,3):{'x':1,'y':10,'z':8}})
+        tupdict = {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2}}
+        tupdict = Anagram.add_kvsum(tupdict,(2,),(4,), Word('xyyyyzzz'))
+        self.assertEqual(tupdict, {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2},(2,4):{'x':1,'y':4,'z':3}})
+
+        del tupdict[(2,4)]
+
+        # don't add if key already exists
+        tupdict[(2,4)] = {}
+        tupdict = Anagram.add_kvsum(tupdict,(2,),(4,), Word('xyyyyzzz'))
+        self.assertEqual(tupdict, {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2},(2,4):{}})
+
+        del tupdict[(2,4)]
+
+        # don't add if word hasn't got enough letters
+        tupdict = Anagram.add_kvsum(tupdict,(2,),(4,), Word('xyyyzzz'))
+        self.assertEqual(tupdict, {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2}})
 
 
- 
 if __name__ == '__main__':
     unittest.main()
