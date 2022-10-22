@@ -34,7 +34,7 @@ class Anagram:
 
 
     # return sorted list where each syllable appears as many times as it fits into the anagram.word.word
-    def slist(self):
+    def set_slist(self):
         s_list = []
         s_dict = dict([(w.word,w) for w in self.language.syllables])
         # self.sdict = s_dict?

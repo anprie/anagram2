@@ -27,14 +27,14 @@ class TestAnagram(unittest.TestCase):
         self.assertEqual(anagram.language.nucleus, {'u'})
 
 
-    def test_slist(self):
+    def test_set_slist(self):
         language = Language('smurf.txt')
         language.read()
         word = Word('furu')
         anagram = Anagram(word, language)
         anagram.language.boil_down(word)
         anagram.language.build_syllables(word)
-        s_list = anagram.slist()
+        s_list = anagram.set_slist()
         self.assertEqual(['fru', 'fu', 'fur', 'ru', 'ruf', 'u', 'u', 'uf', 'ur', 'urf'], s_list)
 
     def test_set_i2syll(self):
@@ -44,7 +44,7 @@ class TestAnagram(unittest.TestCase):
         anagram = Anagram(word, language)
         anagram.language.boil_down(word)
         anagram.language.build_syllables(word)
-        s_list = anagram.slist()
+        s_list = anagram.set_slist()
         i2syll = anagram.set_i2syll(s_list)
         self.assertEqual(i2syll,{0:'fru',1:'fu',2:'fur',3:'ru',4:'ruf',5:'u',6:'u',7:'uf',8:'ur',9:'urf'})
 
