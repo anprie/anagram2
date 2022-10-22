@@ -64,7 +64,7 @@ class Anagram:
     # if v1+v2 is not contained in word, don't add the entry!
     def add_kvsum(tupdict, itup, jtup, word):
     #TODO: check if keys itup and jtup exist, if not, return without adding new entry
-        if itup + jtup in tupdict.keys():
+        if itup + jtup in tupdict.keys() or itup not in tupdict.keys() or jtup not in tupdict.keys():
             return tupdict
 
         vsum = Word.add(tupdict[itup],tupdict[jtup])
@@ -78,8 +78,8 @@ class Anagram:
 
         add_kvsum(combinations, tup, (i,), self.word)
 
-        for k in range(i, len(self.slist):
-            for m in range(j, len(self.slist):
+        for k in range(i, len(self.slist)):
+            for m in range(j, len(self.slist)):
                 return self.cat(tup+ (k,), k+1, m+1)
 
 
