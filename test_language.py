@@ -27,17 +27,14 @@ class TestLanguage(unittest.TestCase):
         self.assertEqual({'u'}, language.nucleus)
         self.assertEqual({'f','r','rf'}, language.coda)
 
-
     def test_build_syllables(self):
         language = Language('smurf.txt')
         language.read()
         word = Word('fur')
-        anagram = Anagram(word, language)
-        anagram.boil_down_language()
+        language.boil_down(word)
         syllables = sorted(['fur','ur','uf','fu','urf','fru','ruf','ru','u'])
         syll = sorted([i.word for i in list(language.build_syllables(word))])
         self.assertEqual(syllables, syll)
-        self.assertEqual({'f','r','fr'}, anagram.language.onset)
 
 
 if __name__ == '__main__':
