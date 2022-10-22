@@ -6,15 +6,15 @@ class Anagram:
 
     def __init__(self, word, language):
         self.word = word
-        self.inventory = sorted(word.letters.keys())
+        self.inventory = sorted(word.letters.keys())# TODO: remove?
         self.count = [word.letters[key] for key in sorted(word.letters.keys())]
         self.language = copy.deepcopy(language)
-        self.language.syllables = set()
 
     def __str__(self):
         return f"word: {self.word.word}\ninventory: {self.inventory}\noccurrences of letters in inventory: {self.count}"
 
 
+    # TODO: remove?
     def subtract(self,word):
         result = copy.deepcopy(self.count)
         not_in_inventory = []
