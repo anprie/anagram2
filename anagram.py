@@ -9,7 +9,7 @@ class Anagram:
         self.inventory = sorted(word.letters.keys())
         self.count = [word.letters[key] for key in sorted(word.letters.keys())]
         self.language = copy.deepcopy(language)
-        self.syllables = set()
+        self.language.syllables = set()
 
     def __str__(self):
         return f"word: {self.word.word}\ninventory: {self.inventory}\noccurrences of letters in inventory: {self.count}"
@@ -30,30 +30,12 @@ class Anagram:
         return (result, not_in_inventory)
 
 
-    # remove all syllables that can't be comprised of the input word's letters
-    def boil_down_language(self):
-        for c_set in [self.language.onset, self.language.nucleus, self.language.coda]:
-            for c in list(c_set):
-                if not self.word.contains(Word(c)):
-                    c_set.remove(c)
-        return (self.language.onset, self.language.nucleus, self.language.coda)
-
-
-    # put onset, nucleus, and coda together to form syllables
-    # add empty string to onset for syllables that start with a vowel
-    def build_syllables(self):
-        on = {Word(o+n) for o in self.language.onset.union({''}) for n in self.language.nucleus}
-        onc = {Word(s+c) for c in self.language.coda for s in {i.word for i in on} if self.word.contains(Word(s+c))}
-        self.syllables.update(on,onc)
-        return self.syllables
-
-
     # return sorted list where each syllable appears as many times as it fits into the anagram.word.word
     def slist(self):
         s_list = []
-        s_dict = dict([(w.word,w) for w in self.syllables])
+        s_dict = dict([(w.word,w) for w in self.language.syllables])
         # self.sdict = s_dict?
-        for s in list(self.syllables):
+        for s in list(self.language.syllables):
             cnt = self.word.contains(s)
             for i in range(cnt):
                 s_list.append(s.word)
@@ -69,7 +51,7 @@ class Anagram:
 
     # map syllable strings to syllable objects
     def syll2letters(self):
-        syll2letters = dict([(s.word,s.letters) for s in self.syllables])
+        syll2letters = dict([(s.word,s.letters) for s in self.language.syllables])
         return syll2letters
 
     # add new entry to dictionary: key = itup,jtup), value= sum of itup's and jtup's entries in tupdict
