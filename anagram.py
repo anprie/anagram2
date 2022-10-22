@@ -9,6 +9,9 @@ class Anagram:
         self.inventory = sorted(word.letters.keys())# TODO: remove?
         self.count = [word.letters[key] for key in sorted(word.letters.keys())]
         self.language = copy.deepcopy(language)
+        self.syll2letters = {}
+        self.i2syll = {}
+        self.syll_list = []
 
     def __str__(self):
         return f"word: {self.word.word}\ninventory: {self.inventory}\noccurrences of letters in inventory: {self.count}"
@@ -39,19 +42,22 @@ class Anagram:
             cnt = self.word.contains(s)
             for i in range(cnt):
                 s_list.append(s.word)
-        return sorted(s_list)
+        self.syll_list = sorted(s_list)
+        return self.syll_list
 
 
     # map index to syllable string
-    def i2syll(self,slist):
+    def set_i2syll(self,slist):
         index2syll = {}
         for i in range(len(slist)):
             index2syll[i] = slist[i]
+        self.i2syll = index2syll
         return index2syll
 
     # map syllable strings to syllable objects
-    def syll2letters(self):
+    def set_syll2letters(self):
         syll2letters = dict([(s.word,s.letters) for s in self.language.syllables])
+        self.syll2letters = syll2letters
         return syll2letters
 
     # add new entry to dictionary: key = itup,jtup), value= sum of itup's and jtup's entries in tupdict
@@ -68,5 +74,10 @@ class Anagram:
     def combine(self):
         # create dictionary with indices of slist as keys and the corresponding syllable's letter dict as values
         # loop through indices, adding entries to the dictionary
-        pass
+        # needed: self.slist? self.syll2letters? self.i2syll? self.tupdict?
+        for i in range(len(slist)):
+            for  j in range(i+1,len(slist)):
+                print("i= ", i, "j= ", j)
+        
+
 
