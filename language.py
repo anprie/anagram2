@@ -31,6 +31,16 @@ class Language:
         return lines
 
 
+    # remove all syllables that can't be comprised of the input word's letters
+    def boil_down(self, word):
+        for c_set in [self.onset, self.nucleus, self.coda]:
+            for c in list(c_set):
+                if not word.contains(Word(c)):
+                    c_set.remove(c)
+        return (self.onset, self.nucleus, self.coda)
+
+
+
     # put onset, nucleus, and coda together to form syllables
     # add empty string to onset for syllables that start with a vowel
     def build_syllables(self, word):
