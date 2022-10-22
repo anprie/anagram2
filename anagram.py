@@ -11,7 +11,7 @@ class Anagram:
         self.language = copy.deepcopy(language)
         self.syll2letters = {}
         self.i2syll = {}
-        self.syll_list = []
+        self.slist = []
 
     def __str__(self):
         return f"word: {self.word.word}\ninventory: {self.inventory}\noccurrences of letters in inventory: {self.count}"
@@ -42,8 +42,8 @@ class Anagram:
             cnt = self.word.contains(s)
             for i in range(cnt):
                 s_list.append(s.word)
-        self.syll_list = sorted(s_list)
-        return self.syll_list
+        self.slist = sorted(s_list)
+        return self.slist
 
 
     # map index to syllable string
