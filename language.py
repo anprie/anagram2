@@ -1,5 +1,6 @@
 import re
 import copy
+from word import Word
 
 class Language:
 
@@ -9,6 +10,7 @@ class Language:
         self.onset = set()
         self.coda = set()
         self.nucleus = set()
+        self.syllables = set()
         
     def __str__(self):
         return f"language: {self.name}\nfile: {self.file}\nonset: {self.onset}\nnucleus: {self.nucleus}\ncoda: {self.coda}"
@@ -27,4 +29,13 @@ class Language:
                 if c == '1':
                     self.coda.add(cluster)
         return lines
+
+
+    # put onset, nucleus, and coda together to form syllables
+    # add empty string to onset for syllables that start with a vowel
+    def build_syllables(self, word):
+        on = {Word(o+n) for o in self.onset.union({''}) for n in self.nucleus}
+        onc = {Word(s+c) for c in self.coda for s in {i.word for i in on} if word.contains(Word(s+c))}
+        self.syllables.update(on,onc)
+        return self.syllables
 
