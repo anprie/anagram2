@@ -63,6 +63,7 @@ class Anagram:
     # add new entry to dictionary: key = itup,jtup), value= sum of itup's and jtup's entries in tupdict
     # if v1+v2 is not contained in word, don't add the entry!
     def add_kvsum(tupdict, itup, jtup, word):
+    #TODO: check if keys itup and jtup exist, if not, return without adding new entry
         if itup + jtup in tupdict.keys():
             return tupdict
 
@@ -71,13 +72,17 @@ class Anagram:
             tupdict[itup + jtup] = vsum
         return tupdict
 
-    def combine(self):
-        # create dictionary with indices of slist as keys and the corresponding syllable's letter dict as values
-        # loop through indices, adding entries to the dictionary
-        # needed: self.slist? self.syll2letters? self.i2syll? self.tupdict?
-        for i in range(len(slist)):
-            for  j in range(i+1,len(slist)):
-                print("i= ", i, "j= ", j)
+    def cat(self,tup,i,j):
+        if i >= len(self.slist) -1 or j >= len(self.slist) -1:
+            return tup 
+
+        add_kvsum(combinations, tup, (i,), self.word)
+
+        for k in range(i, len(self.slist):
+            for m in range(j, len(self.slist):
+                return self.cat(tup+ (k,), k+1, m+1)
+
+
         
 
 
