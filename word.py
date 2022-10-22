@@ -11,15 +11,17 @@ class Word:
     def __str__(self):
         return f"word: {self.word}\nhas letters: {self.letters}\n"
 
+
+    # TODO: remove deepcopy either in add/subtract or in lsum/ldiff
+    def subtract(a,b):
+        c = copy.deepcopy(a)
+        for key in b.keys():
+            c[key] = c.get(key,0) - b[key]
+        return c
+
     def ldiff(self,word):
-        l1 = copy.deepcopy(self.letters)
-        l2 = word.letters
-        for key in l2.keys():
-            if key in l1:
-                l1[key] -= l2[key]
-            else:
-                l1[key] = -l2[key]
-        return l1
+        l = copy.deepcopy(self.letters)
+        return Word.subtract(l, word.letters)
 
     def add(a,b):
         c = copy.deepcopy(a)
@@ -27,10 +29,9 @@ class Word:
             c[key] = c.get(key,0) + b[key]
         return c
 
-
     def lsum(self,word):
         l = copy.deepcopy(self.letters)
-        return Word.add(l,word.letters)
+        return Word.add(l, word.letters)
 
     def contains(self,word):
         diff = self.ldiff(word)
