@@ -33,8 +33,12 @@ class Word:
         l = copy.deepcopy(self.letters)
         return Word.add(l, word.letters)
 
-    def contains(self,word):
-        diff = self.ldiff(word)
+    def contains(self,d):
+        #diff = self.ldiff(word)
+        if type(d) == Word:
+            d = d.letters
+        #diff = self.ldiff(word)
+        diff = Word.subtract(self.letters,d)
         # more occurrences of at least one letter in word than in self.word
         if not all(v >= 0 for v in diff.values()):
             return 0
@@ -42,5 +46,5 @@ class Word:
         if 0 in diff.values():
             return 1
         # how many times does word fit into self.word, letterwise?
-        return min([self.letters[l]//word.letters[l] for l in word.letters])
+        return min([self.letters[l]//d[l] for l in d])
 
