@@ -98,6 +98,9 @@ class TestAnagram(unittest.TestCase):
         anagram.combinations = combinations
         anagram.cat((1,),2,3)
         print("combinations= ", combinations)
+        # nothing should have been added because there can't be more than one
+        # syllable (as there is only one nucleus/vowel)
+        self.assertEqual((8,), max(combinations.keys()))
 
         
 
