@@ -67,7 +67,7 @@ class Anagram:
     def add_kvsum(self, tup, jtup, word):
         if tup + jtup in self.combinations.keys() or tup not in self.combinations.keys() or jtup not in self.combinations.keys():
             if tup + jtup in self.combinations.keys():
-                print("error: key ", tup + jtup, " exists")
+                print("error: key ", tup + jtup, " exists already")
             if not tup in self.combinations.keys():
                 print("error: ", tup, "not in dict")
             if not jtup in self.combinations.keys():
@@ -99,3 +99,10 @@ class Anagram:
                     return self.cat(tup+k, m)
                 if m>k[0]:
                     return self.cat(tup+k, m)
+
+    def anagram(self):
+        for i in range(len(self.slist)):
+            self.cat((i,),i+1)
+        anagrams = [[self.i2syll[x] for x in tup] for tup in self.combinations.keys() if self.word.letters == self.combinations[tup]]
+        #print("anagrams =\n", anagrams)
+        return set([tuple(a) for a in anagrams])
