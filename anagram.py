@@ -65,6 +65,7 @@ class Anagram:
     # if v1+v2 is not contained in word, don't add the entry!
     # if tup or jtup are not in the self.combinations, don't add the entry
     def add_kvsum(self, tup, jtup, word):
+        #print("keys in self.combinations = ", self.combinations.keys())
         if tup + jtup in self.combinations.keys() or tup not in self.combinations.keys() or jtup not in self.combinations.keys():
             if tup + jtup in self.combinations.keys():
                 print("key ", tup + jtup, " exists")
@@ -78,24 +79,24 @@ class Anagram:
         if word.contains(vsum):
             print("adding key ", tup + jtup, "with value ", vsum)
             self.combinations[tup + jtup] = vsum
-        return 1
+            return 1
+        print("not enough letters in word for ", vsum)
+        return 0
 
 
     def cat(self,tup,i):
-        if i >= len(self.slist) -1:
+        #print("tup = ", tup, "i = ", i)
+        if i >= len(self.slist):
+            #print("terminating condition")
             return
 
         added = self.add_kvsum(tup, (i,), self.word)
-        print("added = ", added)
 
-        if added and tup + (i,) in self.combinations.keys():
-            print("new entry has been added, recursive calls for i = ", i)
-            for k in range(i+1, len(self.slist)):
-                return self.cat(tup+ (i,), k)
-
-        return
-
-
-        
-
-
+        for k in [tuple()] + [(j,) for j in range(i+1, len(self.slist))]:
+            #print("k = ", k)
+            for m in range(i+1, len(self.slist)):
+                #print("m = ", m)
+                if k == tuple():
+                    return self.cat(tup+k, m)
+                if m>k[0]:
+                    return self.cat(tup+k, m)

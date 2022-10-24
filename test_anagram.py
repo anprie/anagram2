@@ -104,15 +104,20 @@ class TestAnagram(unittest.TestCase):
         anagram2.language.boil_down(word)
         anagram2.language.build_syllables(word)
         slist = anagram2.set_slist()
-        print("slist = ", slist)
-        syllables = ['fru', 'fu', 'fur', 'ru', 'ruf', 'u', 'u', 'uf', 'ur', 'urf']
-        keys = [(0,),(0,5),(0,6),(1,),(1,3),(1,5),(1,6),(1,7),(2,),(2,5),(2,6),(3,),(3,5),(3,6),(3,7),(4,),(4,5),(4,6),(5,),(5,6),(5,7),(5,8),(5,9),(6,),(6,7),(6,8),(6,9),(7,),(7,8),(8,),(9,)]
+        #['fru', 'fu', 'fur', 'ru', 'ruf', 'u', 'u', 'uf', 'ur', 'urf']
+        #print("anagram.slist = ", anagram.slist)
+        # i2syll =  {0: 'fru', 1: 'fu', 2: 'fur', 3: 'ru', 4: 'ruf', 5: 'u', 6: 'u', 7: 'uf', 8: 'ur', 9: 'urf'}
+        keys = [(0,),(0,5),(0,6),(1,),(1,3),(1,5),(1,6),(1,8),(2,),(2,5),(2,6),(3,),(3,5),(3,6),(3,7),(4,),(4,5),(4,6),(5,),(5,6),(5,7),(5,8),(5,9),(6,),(6,7),(6,8),(6,9),(7,),(7,8),(8,),(9,)]
         i2syll = anagram2.set_i2syll(slist)
+        #print("i2syll = ", i2syll)
         syll2letters = anagram2.set_syll2letters()
         combinations = dict([((i,),syll2letters[anagram2.slist[i]]) for i in range(len(anagram2.slist))])
+        #print("combinations in test_anagram: ", combinations)
         anagram2.combinations = combinations
-        anagram2.cat((0,),1)
-        self.assertEqual(sorted(keys), sorted(anagram.combinations.keys()))
+        for i in range(len(anagram.slist)):
+            anagram2.cat((i,),i+1)
+#        anagram2.cat((0,),1)
+        self.assertEqual(sorted(keys), sorted(anagram2.combinations.keys()))
 
         
 
