@@ -66,12 +66,12 @@ class Anagram:
     # if itup or jtup are not in the self.combinations, don't add the entry
     def add_kvsum(self, itup, jtup, word):
         if itup + jtup in self.combinations.keys() or itup not in self.combinations.keys() or jtup not in self.combinations.keys():
-#            if itup + jtup in self.combinations.keys():
-#                print("key ", itup + jtup, " exists")
-#            if not itup in self.combinations.keys():
-#                print(itup, "not in dict")
-#            if not jtup in self.combinations.keys():
-#                print(jtup, " not in dict")
+            if itup + jtup in self.combinations.keys():
+                print("key ", itup + jtup, " exists")
+            if not itup in self.combinations.keys():
+                print(itup, "not in dict")
+            if not jtup in self.combinations.keys():
+                print(jtup, " not in dict")
             return self.combinations
 
         vsum = Word.add(self.combinations[itup],self.combinations[jtup])
@@ -80,15 +80,20 @@ class Anagram:
             self.combinations[itup + jtup] = vsum
         return self.combinations
 
+
     def cat(self,tup,i,j):
         if i >= len(self.slist) -1 or j >= len(self.slist) -1:
             return tup 
 
         self.add_kvsum(tup, (i,), self.word)
 
-        for k in range(i, len(self.slist)):
-            for m in range(j, len(self.slist)):
-                return self.cat(tup+ (k,), k+1, m+1)
+        if tup + (i,) in self.combinations.keys():
+            print("new entry has been added, recursive calls for i = ", i)
+            for k in range(i, len(self.slist)):
+                for m in range(j, len(self.slist)):
+                    return self.cat(tup+ (k,), k+1, m+1)
+
+        return
 
 
         
