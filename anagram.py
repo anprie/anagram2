@@ -65,22 +65,21 @@ class Anagram:
     # if v1+v2 is not contained in word, don't add the entry!
     # if tup or jtup are not in the self.combinations, don't add the entry
     def add_kvsum(self, tup, jtup, word):
-        #print("keys in self.combinations = ", self.combinations.keys())
         if tup + jtup in self.combinations.keys() or tup not in self.combinations.keys() or jtup not in self.combinations.keys():
             if tup + jtup in self.combinations.keys():
-                print("key ", tup + jtup, " exists")
+                print("error: key ", tup + jtup, " exists")
             if not tup in self.combinations.keys():
-                print(tup, "not in dict")
+                print("error: ", tup, "not in dict")
             if not jtup in self.combinations.keys():
-                print(jtup, " not in dict")
+                print("error: ", jtup, " not in dict")
             return 0
 
         vsum = Word.add(self.combinations[tup],self.combinations[jtup])
         if word.contains(vsum):
-            print("adding key ", tup + jtup, "with value ", vsum)
+            #print("adding key ", tup + jtup, "with value ", vsum)
             self.combinations[tup + jtup] = vsum
             return 1
-        print("not enough letters in word for ", vsum)
+        #print("not enough letters in word for ", vsum)
         return 0
 
 
@@ -90,7 +89,7 @@ class Anagram:
             #print("terminating condition")
             return
 
-        added = self.add_kvsum(tup, (i,), self.word)
+        self.add_kvsum(tup, (i,), self.word)
 
         for k in [tuple()] + [(j,) for j in range(i+1, len(self.slist))]:
             #print("k = ", k)
