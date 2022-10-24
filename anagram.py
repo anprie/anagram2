@@ -12,6 +12,7 @@ class Anagram:
         self.syll2letters = {}
         self.i2syll = {}
         self.slist = []
+        self.combinations = {}
 
     def __str__(self):
         return f"word: {self.word.word}\ninventory: {self.inventory}\noccurrences of letters in inventory: {self.count}"
@@ -62,13 +63,22 @@ class Anagram:
 
     # add new entry to dictionary: key = itup,jtup), value= sum of itup's and jtup's entries in tupdict
     # if v1+v2 is not contained in word, don't add the entry!
+    # if itup or jtup are not in the dictionary, don't add the entry
+    # TODO: use self.combinations rather than a parameter?
     def add_kvsum(tupdict, itup, jtup, word):
-    #TODO: check if keys itup and jtup exist, if not, return without adding new entry
+        print("tupdict in add_kvsum: ", tupdict)
         if itup + jtup in tupdict.keys() or itup not in tupdict.keys() or jtup not in tupdict.keys():
+#            if itup + jtup in tupdict.keys():
+#                print("key ", itup + jtup, " exists")
+#            if not itup in tupdict.keys():
+#                print(itup, "not in dict")
+#            if not jtup in tupdict.keys():
+#                print(jtup, " not in dict")
             return tupdict
 
         vsum = Word.add(tupdict[itup],tupdict[jtup])
         if word.contains(vsum):
+            print("adding key ", itup + jtup, "with value ", vsum)
             tupdict[itup + jtup] = vsum
         return tupdict
 
@@ -76,7 +86,7 @@ class Anagram:
         if i >= len(self.slist) -1 or j >= len(self.slist) -1:
             return tup 
 
-        add_kvsum(combinations, tup, (i,), self.word)
+        Anagram.add_kvsum(self.combinations, tup, (i,), self.word)
 
         for k in range(i, len(self.slist)):
             for m in range(j, len(self.slist)):

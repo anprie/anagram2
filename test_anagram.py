@@ -81,6 +81,25 @@ class TestAnagram(unittest.TestCase):
         tupdict = Anagram.add_kvsum(tupdict,(2,),(4,), Word('xyyyzzz'))
         self.assertEqual(tupdict, {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2}})
 
+    def test_cat(self):
+        language = Language('smurf.txt')
+        language.read()
+        word = Word('fur')
+        anagram = Anagram(word, language)
+        anagram.language.boil_down(word)
+        anagram.language.build_syllables(word)
+        slist = anagram.set_slist()
+        print("slist = ", slist)
+        i2syll = anagram.set_i2syll(slist)
+        syll2letters = anagram.set_syll2letters()
+        print("syll2letters = ", syll2letters)
+        combinations = dict([((i,),syll2letters[anagram.slist[i]]) for i in range(len(anagram.slist))])
+        print("combinations= ", combinations)
+        anagram.combinations = combinations
+        anagram.cat((1,),2,3)
+        print("combinations= ", combinations)
+
+        
 
 if __name__ == '__main__':
     unittest.main()
