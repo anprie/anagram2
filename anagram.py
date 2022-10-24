@@ -78,19 +78,20 @@ class Anagram:
         if word.contains(vsum):
             print("adding key ", tup + jtup, "with value ", vsum)
             self.combinations[tup + jtup] = vsum
-        return self.combinations
+        return 1
 
 
     def cat(self,tup,i):
         if i >= len(self.slist) -1:
-            return tup 
+            return
 
-        self.add_kvsum(tup, (i,), self.word)
+        added = self.add_kvsum(tup, (i,), self.word)
+        print("added = ", added)
 
-        if tup + (i,) in self.combinations.keys():
+        if added and tup + (i,) in self.combinations.keys():
             print("new entry has been added, recursive calls for i = ", i)
-            for k in range(i, len(self.slist)):
-                return self.cat(tup+ (k,), k+1)
+            for k in range(i+1, len(self.slist)):
+                return self.cat(tup+ (i,), k)
 
         return
 
