@@ -64,22 +64,24 @@ class TestAnagram(unittest.TestCase):
         self.assertEqual(syll2letters,s2l)
 
     def test_add_kvsum(self):
-        tupdict = {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2}}
-        tupdict = Anagram.add_kvsum(tupdict,(2,),(4,), Word('xyyyyzzz'))
-        self.assertEqual(tupdict, {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2},(2,4):{'x':1,'y':4,'z':3}})
+        word = Word('xyyyyzzz')
+        anagram = Anagram(word, Language('german.txt'))
+        anagram.combinations = {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2}}
+        anagram.add_kvsum((2,),(4,),word )
+        self.assertEqual(anagram.combinations, {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2},(2,4):{'x':1,'y':4,'z':3}})
 
-        del tupdict[(2,4)]
+        del anagram.combinations[(2,4)]
 
         # don't add if key already exists
-        tupdict[(2,4)] = {}
-        tupdict = Anagram.add_kvsum(tupdict,(2,),(4,), Word('xyyyyzzz'))
-        self.assertEqual(tupdict, {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2},(2,4):{}})
+        anagram.combinations[(2,4)] = {}
+        anagram.add_kvsum((2,),(4,), Word('xyyyyzzz'))
+        self.assertEqual(anagram.combinations, {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2},(2,4):{}})
 
-        del tupdict[(2,4)]
+        del anagram.combinations[(2,4)]
 
         # don't add if word hasn't got enough letters
-        tupdict = Anagram.add_kvsum(tupdict,(2,),(4,), Word('xyyyzzz'))
-        self.assertEqual(tupdict, {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2}})
+        anagram.add_kvsum((2,),(4,), Word('xyyyzzz'))
+        self.assertEqual(anagram.combinations, {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2}})
 
     def test_cat(self):
         language = Language('smurf.txt')
@@ -94,7 +96,6 @@ class TestAnagram(unittest.TestCase):
         syll2letters = anagram.set_syll2letters()
         print("syll2letters = ", syll2letters)
         combinations = dict([((i,),syll2letters[anagram.slist[i]]) for i in range(len(anagram.slist))])
-        print("combinations= ", combinations)
         anagram.combinations = combinations
         anagram.cat((1,),2,3)
         print("combinations= ", combinations)

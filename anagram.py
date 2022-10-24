@@ -61,32 +61,30 @@ class Anagram:
         self.syll2letters = syll2letters
         return syll2letters
 
-    # add new entry to dictionary: key = itup,jtup), value= sum of itup's and jtup's entries in tupdict
+    # add new entry to self.combinatiosn: key = itup,jtup), value= sum of itup's and # jtup's entries in self.combinations
     # if v1+v2 is not contained in word, don't add the entry!
-    # if itup or jtup are not in the dictionary, don't add the entry
-    # TODO: use self.combinations rather than a parameter?
-    def add_kvsum(tupdict, itup, jtup, word):
-        print("tupdict in add_kvsum: ", tupdict)
-        if itup + jtup in tupdict.keys() or itup not in tupdict.keys() or jtup not in tupdict.keys():
-#            if itup + jtup in tupdict.keys():
+    # if itup or jtup are not in the self.combinations, don't add the entry
+    def add_kvsum(self, itup, jtup, word):
+        if itup + jtup in self.combinations.keys() or itup not in self.combinations.keys() or jtup not in self.combinations.keys():
+#            if itup + jtup in self.combinations.keys():
 #                print("key ", itup + jtup, " exists")
-#            if not itup in tupdict.keys():
+#            if not itup in self.combinations.keys():
 #                print(itup, "not in dict")
-#            if not jtup in tupdict.keys():
+#            if not jtup in self.combinations.keys():
 #                print(jtup, " not in dict")
-            return tupdict
+            return self.combinations
 
-        vsum = Word.add(tupdict[itup],tupdict[jtup])
+        vsum = Word.add(self.combinations[itup],self.combinations[jtup])
         if word.contains(vsum):
             print("adding key ", itup + jtup, "with value ", vsum)
-            tupdict[itup + jtup] = vsum
-        return tupdict
+            self.combinations[itup + jtup] = vsum
+        return self.combinations
 
     def cat(self,tup,i,j):
         if i >= len(self.slist) -1 or j >= len(self.slist) -1:
             return tup 
 
-        Anagram.add_kvsum(self.combinations, tup, (i,), self.word)
+        self.add_kvsum(tup, (i,), self.word)
 
         for k in range(i, len(self.slist)):
             for m in range(j, len(self.slist)):
