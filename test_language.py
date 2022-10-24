@@ -10,6 +10,10 @@ class TestLanguage(unittest.TestCase):
         language = Language(lang_file)
         self.assertEqual(language.name, "german")
 
+        langfile2 = 'german.txt.txt'
+        language2 = Language(langfile2)
+        self.assertEqual(language2.name, "german")
+
     def test_read(self):
         language = Language("smurf.txt")
         language.read()
@@ -26,6 +30,14 @@ class TestLanguage(unittest.TestCase):
         self.assertEqual({'f','r','fr'}, language.onset)
         self.assertEqual({'u'}, language.nucleus)
         self.assertEqual({'f','r','rf'}, language.coda)
+
+        language2 = Language('german.txt')
+        language2.read()
+        language2.boil_down(word)
+        self.assertEqual({'f','r','fr'}, language2.onset)
+        self.assertEqual({'u'}, language2.nucleus)
+        self.assertEqual({'f','r','rf'}, language2.coda)
+        
 
     def test_build_syllables(self):
         language = Language('smurf.txt')
