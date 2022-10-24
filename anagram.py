@@ -61,23 +61,23 @@ class Anagram:
         self.syll2letters = syll2letters
         return syll2letters
 
-    # add new entry to self.combinatiosn: key = itup,jtup), value= sum of itup's and # jtup's entries in self.combinations
+    # add new entry to self.combinatiosn: key = tup,jtup), value= sum of tup's and # jtup's entries in self.combinations
     # if v1+v2 is not contained in word, don't add the entry!
-    # if itup or jtup are not in the self.combinations, don't add the entry
-    def add_kvsum(self, itup, jtup, word):
-        if itup + jtup in self.combinations.keys() or itup not in self.combinations.keys() or jtup not in self.combinations.keys():
-            if itup + jtup in self.combinations.keys():
-                print("key ", itup + jtup, " exists")
-            if not itup in self.combinations.keys():
-                print(itup, "not in dict")
+    # if tup or jtup are not in the self.combinations, don't add the entry
+    def add_kvsum(self, tup, jtup, word):
+        if tup + jtup in self.combinations.keys() or tup not in self.combinations.keys() or jtup not in self.combinations.keys():
+            if tup + jtup in self.combinations.keys():
+                print("key ", tup + jtup, " exists")
+            if not tup in self.combinations.keys():
+                print(tup, "not in dict")
             if not jtup in self.combinations.keys():
                 print(jtup, " not in dict")
             return 0
 
-        vsum = Word.add(self.combinations[itup],self.combinations[jtup])
+        vsum = Word.add(self.combinations[tup],self.combinations[jtup])
         if word.contains(vsum):
-            print("adding key ", itup + jtup, "with value ", vsum)
-            self.combinations[itup + jtup] = vsum
+            print("adding key ", tup + jtup, "with value ", vsum)
+            self.combinations[tup + jtup] = vsum
         return self.combinations
 
 
