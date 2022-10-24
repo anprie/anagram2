@@ -133,6 +133,8 @@ class TestAnagram(unittest.TestCase):
         anagrams = anagram.anagram()
         filtered_combs = {('fru','u'),('fu','ru'),('fur','u'),('fu','ur'),('ru','uf'),('ruf','u'),('u','urf'),('uf','ur')}
         self.assertEqual(filtered_combs, anagrams)
+        stringsums = [sum([len(string) for string in list(comb)]) for comb in list(anagrams)]
+        self.assertTrue(all(s== len(anagram.word.word) for s in stringsums))
 
         
 
