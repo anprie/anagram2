@@ -72,7 +72,7 @@ class Anagram:
                 print(itup, "not in dict")
             if not jtup in self.combinations.keys():
                 print(jtup, " not in dict")
-            return self.combinations
+            return 0
 
         vsum = Word.add(self.combinations[itup],self.combinations[jtup])
         if word.contains(vsum):
@@ -81,8 +81,8 @@ class Anagram:
         return self.combinations
 
 
-    def cat(self,tup,i,j):
-        if i >= len(self.slist) -1 or j >= len(self.slist) -1:
+    def cat(self,tup,i):
+        if i >= len(self.slist) -1:
             return tup 
 
         self.add_kvsum(tup, (i,), self.word)
@@ -90,8 +90,7 @@ class Anagram:
         if tup + (i,) in self.combinations.keys():
             print("new entry has been added, recursive calls for i = ", i)
             for k in range(i, len(self.slist)):
-                for m in range(j, len(self.slist)):
-                    return self.cat(tup+ (k,), k+1, m+1)
+                return self.cat(tup+ (k,), k+1)
 
         return
 

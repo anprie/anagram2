@@ -95,7 +95,7 @@ class TestAnagram(unittest.TestCase):
         syll2letters = anagram.set_syll2letters()
         combinations = dict([((i,),syll2letters[anagram.slist[i]]) for i in range(len(anagram.slist))])
         anagram.combinations = combinations
-        anagram.cat((1,),2,3)
+        anagram.cat((1,),2)
         # nothing should have been added because there can't be more than one syllable (as there is only one nucleus/vowel)
         self.assertEqual((8,), max(combinations.keys()))
 
@@ -111,7 +111,7 @@ class TestAnagram(unittest.TestCase):
         syll2letters = anagram2.set_syll2letters()
         combinations = dict([((i,),syll2letters[anagram2.slist[i]]) for i in range(len(anagram2.slist))])
         anagram2.combinations = combinations
-        anagram2.cat((0,),1,2)
+        anagram2.cat((0,),1)
         self.assertEqual(sorted(keys), sorted(anagram.combinations.keys()))
 
         
