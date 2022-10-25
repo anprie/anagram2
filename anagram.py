@@ -104,5 +104,6 @@ class Anagram:
         for i in range(len(self.slist)):
             self.cat((i,),i+1)
         anagrams = [[self.i2syll[x] for x in tup] for tup in self.combinations.keys() if self.word.letters == self.combinations[tup]]
-        #print("anagrams =\n", anagrams)
-        return set([tuple(a) for a in anagrams])
+        print("anagrams =\n", anagrams)
+        print("joined strings:\n", ["-".join(a) for a in anagrams])
+        return set(["-".join(a) for a in anagrams])

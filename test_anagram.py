@@ -131,10 +131,10 @@ class TestAnagram(unittest.TestCase):
         # [(0,),(0,5),(0,6),(1,),(1,3),(1,5),(1,6),(1,8),(2,),(2,5),(2,6),(3,),(3,5),(3,6),(3,7),(4,),(4,5),(4,6),(5,),(5,6),(5,7),(5,8),(5,9),(6,),(6,7),(6,8),(6,9),(7,),(7,8),(8,),(9,)]
         # i2syll =  {0: 'fru', 1: 'fu', 2: 'fur', 3: 'ru', 4: 'ruf', 5: 'u', 6: 'u', 7: 'uf', 8: 'ur', 9: 'urf'}
         anagrams = anagram.anagram()
-        filtered_combs = {('fru','u'),('fu','ru'),('fur','u'),('fu','ur'),('ru','uf'),('ruf','u'),('u','urf'),('uf','ur')}
-        self.assertEqual(filtered_combs, anagrams)
-        stringsums = [sum([len(string) for string in list(comb)]) for comb in list(anagrams)]
-        self.assertTrue(all(s== len(anagram.word.word) for s in stringsums))
+        expected = {'fru-u','fu-ru','fur-u','fu-ur','ru-uf','ruf-u','u-urf','uf-ur'}
+        self.assertEqual(expected, anagrams)
+        stringsums = [len(string) for string in list(anagrams)]
+        self.assertTrue(all(s== len(anagram.word.word)+1 for s in stringsums))
 
         
 
