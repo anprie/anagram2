@@ -7,19 +7,20 @@ from language import Language
 import sys, getopt
 import logging
 
-logging.basicConfig(format='%(asctime)s %(message)s')
+logging.basicConfig(format='%(asctime)s-%(levelname)s- %(message)s')
 
 logger = logging.getLogger()
 
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 
 
 def main(argv):
     word = ''
     language = ''
+    level = 'info'
     try:
-      opts, args = getopt.getopt(argv,"hw:l:",["word=","language="])
+      opts, args = getopt.getopt(argv,"hw:l:d:",["word=","language=", "debug="])
     except getopt.GetoptError:
       print( 'Usage:\n\tanagrammatize.py -w <word> -l <language_file>')
       sys.exit(2)
@@ -31,13 +32,14 @@ def main(argv):
          word = arg
       elif opt in ("-l", "--language"):
          language = arg
-    print('word is "',word,'"')
-    print('language is "',language,'"')
+      elif opt in ("-d", "--debug"):
+         level = arg
+    logger.info('word is "%s"',word)
+    logger.info('language is "%s"',language)
     anagram = Anagram(Word(word), Language(language))
     anagram.prepare()
     anagrams = anagram.anagram()
-    print("results:")
-    print(anagrams)
+    logger.info('results: "%s"',anagrams)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
