@@ -43,7 +43,6 @@ class TestLanguage(unittest.TestCase):
         language = Language('smurf.txt')
         language.read()
         word = Word('fur')
-        language.boil_down(word)
         syllables = sorted(['fur','ur','uf','fu','urf','fru','ruf','ru','u'])
         syll = sorted([i.word for i in list(language.build_syllables(word))])
         self.assertEqual(syllables, syll)

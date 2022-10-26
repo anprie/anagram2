@@ -44,8 +44,9 @@ class Language:
     # put onset, nucleus, and coda together to form syllables
     # add empty string to onset for syllables that start with a vowel
     def build_syllables(self, word):
-        on = {Word(o+n) for o in self.onset.union({''}) for n in self.nucleus}
-        onc = {Word(s+c) for c in self.coda for s in {i.word for i in on} if word.contains(Word(s+c))}
+        onset, nucleus, coda = self.boil_down(word)
+        on = {Word(o+n) for o in onset.union({''}) for n in nucleus}
+        onc = {Word(s+c) for c in coda for s in {i.word for i in on} if word.contains(Word(s+c))}
         self.syllables.update(on,onc)
         return self.syllables
 
