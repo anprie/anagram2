@@ -6,8 +6,6 @@ class Anagram:
 
     def __init__(self, word, language):
         self.word = word
-        self.inventory = sorted(word.letters.keys())# TODO: remove?
-        self.count = [word.letters[key] for key in sorted(word.letters.keys())]
         self.language = copy.deepcopy(language)
         self.syll2letters = {}
         self.i2syll = {}
@@ -15,23 +13,7 @@ class Anagram:
         self.combinations = {}
 
     def __str__(self):
-        return f"word: {self.word.word}\ninventory: {self.inventory}\noccurrences of letters in inventory: {self.count}"
-
-
-    # TODO: remove?
-    def subtract(self,word):
-        result = copy.deepcopy(self.count)
-        not_in_inventory = []
-        for key in word.letters.keys():
-            contains_letter = False
-            for i in range(len(self.inventory)):
-                if key == self.inventory[i]:
-                    result[i]-= word.letters[key]
-                    contains_letter = True
-                    break
-            if not contains_letter:
-                not_in_inventory.append(key)
-        return (result, not_in_inventory)
+        return f"Object Anagram\nword: {self.word.word}\nlanguage: {self.language.name}\nletters: {self.word.letters}"
 
 
     # return sorted list where each syllable appears as many times as it fits into the anagram.word.word
