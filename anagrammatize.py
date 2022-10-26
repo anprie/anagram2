@@ -39,6 +39,7 @@ def main(argv):
     anagram = Anagram(Word(word), Language(language))
     anagram.prepare()
     anagrams = anagram.anagram()
+    logger.info('%d anagrams have been found', len(anagrams))
     logger.info('results: "%s"',anagrams)
 
 if __name__ == "__main__":
