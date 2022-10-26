@@ -57,6 +57,8 @@ pr 1 0 0
 pf 1 0 1
 pfl 1 0 1
 ph 1 0 1
+phl 1 0 0
+rph 0 0 1
 pl 1 0 1
 p 1 0 1
 qu 1 0 0
@@ -169,6 +171,8 @@ tscht 0 0 1
 tschst 0 0 1
 mpf 0 0 1
 mpft 0 0 1
+mpfst 0 0 1
+mph 0 0 1
 ns 0 0 1
 lz 0 0 1
 chzt 0 0 1
