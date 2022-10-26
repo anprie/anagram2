@@ -21,6 +21,12 @@ class TestLanguage(unittest.TestCase):
         self.assertEqual(language.nucleus, {'u'})
         self.assertEqual(language.coda, {'s','m','r','f','rm','rf','rs','sm','mf'})
 
+        language2 = Language("smurf.txt")
+        language2.read(Word('fur'))
+        self.assertEqual(language2.onset, {'r','f','fr'})
+        self.assertEqual(language2.nucleus, {'u'})
+        self.assertEqual(language2.coda, {'r','f','rf'})
+
     def test_boil_down(self):
         language = Language('smurf.txt')
         language.read()
@@ -37,7 +43,7 @@ class TestLanguage(unittest.TestCase):
         self.assertEqual({'f','r','fr'}, language2.onset)
         self.assertEqual({'u'}, language2.nucleus)
         self.assertEqual({'f','r','rf'}, language2.coda)
-        
+
 
     def test_build_syllables(self):
         language = Language('smurf.txt')
