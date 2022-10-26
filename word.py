@@ -12,7 +12,6 @@ class Word:
         return f"word: {self.word}\nhas letters: {self.letters}\n"
 
 
-    # TODO: remove deepcopy either in add/subtract or in lsum/ldiff
     def subtract(a,b):
         c = copy.deepcopy(a)
         for key in b.keys():
@@ -20,8 +19,7 @@ class Word:
         return c
 
     def ldiff(self,word):
-        l = copy.deepcopy(self.letters)
-        return Word.subtract(l, word.letters)
+        return Word.subtract(self.letters, word.letters)
 
     def add(a,b):
         c = copy.deepcopy(a)
@@ -30,14 +28,11 @@ class Word:
         return c
 
     def lsum(self,word):
-        l = copy.deepcopy(self.letters)
-        return Word.add(l, word.letters)
+        return Word.add(self.letters, word.letters)
 
     def contains(self,d):
-        #diff = self.ldiff(word)
         if type(d) == Word:
             d = d.letters
-        #diff = self.ldiff(word)
         diff = Word.subtract(self.letters,d)
         # more occurrences of at least one letter in word than in self.word
         if not all(v >= 0 for v in diff.values()):
