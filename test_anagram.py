@@ -9,7 +9,7 @@ class TestAnagram(unittest.TestCase):
         language = Language('smurf.txt')
         language.read()
         anagram = Anagram(Word('bcbcba'), language)
-        print(anagram)
+        #print(anagram)
         self.assertEqual(anagram.language.nucleus, {'u'})
 
 
@@ -122,7 +122,27 @@ class TestAnagram(unittest.TestCase):
         stringsums = [len(string) for string in list(anagrams)]
         self.assertTrue(all(s== len(anagram.word.word)+1 for s in stringsums))
 
-        
+    def test_prepare_language(self):
+        anagram = Anagram(Word('tuna'), Language('smurf.txt'))
+        anagram.prepare_language()
+        self.assertEqual({'u'}, anagram.language.nucleus)
+        self.assertEqual(set(), anagram.language.onset)
+        self.assertEqual(set(), anagram.language.coda)
+        self.assertEqual(1, len(anagram.language.syllables))
+
+        anagram2 = Anagram(Word('hello'), Language('smurf.txt'))
+        anagram2.prepare_language()
+        self.assertEqual(set(), anagram2.language.nucleus)
+        self.assertEqual(set(), anagram2.language.onset)
+        self.assertEqual(set(), anagram2.language.coda)
+        self.assertEqual(set(), anagram2.language.syllables)
+
+        anagram3 = Anagram(Word('ru'), Language('smurf.txt'))
+        anagram3.prepare_language()
+        self.assertEqual({'u'}, anagram3.language.nucleus)
+        self.assertEqual({'r'}, anagram3.language.onset)
+        self.assertEqual({'r'}, anagram3.language.coda)
+        self.assertEqual(3, len(anagram3.language.syllables))
 
 if __name__ == '__main__':
     unittest.main()
