@@ -2,6 +2,14 @@ import unittest
 from word import Word
 from language import Language
 from anagram import Anagram
+import logging
+
+logging.basicConfig(format='%(asctime)s %(message)s')
+
+logger = logging.getLogger()
+
+logger.setLevel(logging.DEBUG)
+
 
 class TestLanguage(unittest.TestCase):
 
