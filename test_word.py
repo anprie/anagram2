@@ -38,11 +38,11 @@ class TestWord(unittest.TestCase):
 
         diff2 = word2.ldiff(word)
         self.assertEqual(diff2, {'a':-2, 'b':-1, 'c':0, 'd':-1})
- 
+
     def test_lsum(self):
         word = Word('aaabbcd')
         word2 = Word('abc')
-        
+
         lsum = word.lsum(word2)
         self.assertEqual(lsum, {'a':4, 'b':3, 'c':2, 'd':1})
 
@@ -52,10 +52,10 @@ class TestWord(unittest.TestCase):
     def test_contains(self):
         word = Word('aaaabbbccd')
         word2 = Word('abc')
-        
+
         w_in_w2 = word.contains(word2)
         self.assertEqual(w_in_w2, 2)
-        
+
         w2_in_w = word2.contains(word)
         self.assertEqual(w2_in_w, 0)
 
