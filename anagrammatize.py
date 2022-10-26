@@ -5,6 +5,15 @@ from word import Word
 from language import Language
 
 import sys, getopt
+import logging
+
+logging.basicConfig(format='%(asctime)s %(message)s')
+
+logger = logging.getLogger()
+
+logger.setLevel(logging.DEBUG)
+
+
 
 def main(argv):
     word = ''
