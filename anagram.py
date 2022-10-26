@@ -26,6 +26,7 @@ class Anagram:
             for i in range(cnt):
                 s_list.append(s.word)
         self.slist = sorted(s_list)
+        #print("slist: ", self.slist)
         return self.slist
 
 
@@ -35,12 +36,14 @@ class Anagram:
         for i in range(len(slist)):
             index2syll[i] = slist[i]
         self.i2syll = index2syll
+        #print("i2syll: ", self.i2syll)
         return index2syll
 
     # map syllable strings to syllable objects
     def set_syll2letters(self):
         syll2letters = dict([(s.word,s.letters) for s in self.language.syllables])
         self.syll2letters = syll2letters
+        #print("syll2letters: ", self.syll2letters)
         return syll2letters
 
     # add new entry to self.combinatiosn: key = tup,jtup), value= sum of tup's and # jtup's entries in self.combinations
@@ -91,6 +94,7 @@ class Anagram:
     def anagram(self):
         for i in range(len(self.slist)):
             self.cat((i,),i+1)
+        #print("combinations: ", self.combinations)
         anagrams = [[self.i2syll[x] for x in tup] for tup in self.combinations.keys() if self.word.letters == self.combinations[tup]]
 #        print("anagrams =\n", anagrams)
 #        print("joined strings:\n", ["-".join(a) for a in anagrams])
@@ -104,8 +108,10 @@ class Anagram:
         if self.language.syllables == set():
             print("could not build syllables that can be comprised of letters in word!")
 
-        self.set_slist
-        self.set_i2syll
-        self.set_syll2letters
+        slist = self.set_slist()
+        self.set_i2syll(slist)
+        self.set_syll2letters()
+        self.combinations = dict([((i,),self.syll2letters[self.slist[i]]) for i in range(len(self.slist))])
+        #print("combinations: ", self.combinations)
 
         return self.slist
