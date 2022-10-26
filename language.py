@@ -22,7 +22,7 @@ class Language:
                 lines += 1
                 (cluster, o, n, c) = [a.strip() for a in line.split(' ')]
                 if word and not word.contains(Word(cluster)):
-                    print(cluster, " not in ", word.word)
+                    #print(cluster, " not in ", word.word)
                     continue
                 if n == '1':
                     self.nucleus.add(cluster)
@@ -51,5 +51,7 @@ class Language:
         on = {Word(o+n) for o in onset.union({''}) for n in nucleus}
         onc = {Word(s+c) for c in coda for s in {i.word for i in on} if word.contains(Word(s+c))}
         self.syllables.update(on,onc)
+        if self.syllables == {}:
+            print("could not build syllables!")
         return self.syllables
 
