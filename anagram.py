@@ -73,13 +73,19 @@ class Anagram:
 
         self.add_kvsum(tup, (i,), self.word)
 
+# TODO: avoid recursive calls for duplicate syllables as syllables can appear multiple times in slist
+#        duplicate = self.i2syll[tup[-1]] == self.i2syll[i]
+#        if duplicate:
+#            print("last syllable is same as current, skipping duplicates")
         for k in [tuple()] + [(j,) for j in range(i+1, len(self.slist))]:
             #print("k = ", k)
             for m in range(i+1, len(self.slist)):
                 #print("m = ", m)
-                if k == tuple():
+                if k == tuple():# and not duplicate:
+                    #print("k is empty tuple and current syllable is not a duplicate")
                     return self.cat(tup+k, m)
-                if m>k[0]:
+                if m>k[0]:# and k != tuple()
+                    #print("k is not empty tuple and m is > k")
                     return self.cat(tup+k, m)
 
     def anagram(self):
