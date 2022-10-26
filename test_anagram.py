@@ -3,6 +3,15 @@ from anagram import Anagram
 from word import Word
 from language import Language
 from copy import deepcopy
+import logging
+
+logging.basicConfig(format='%(asctime)s %(message)s')
+
+logger = logging.getLogger()
+
+logger.setLevel(logging.DEBUG)
+
+
 class TestAnagram(unittest.TestCase):
 
     def test_language(self):

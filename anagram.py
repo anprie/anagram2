@@ -1,6 +1,9 @@
 import re
 import copy
 from word import Word
+import logging
+
+logger = logging.getLogger()
 
 class Anagram:
 
@@ -26,7 +29,7 @@ class Anagram:
             for i in range(cnt):
                 s_list.append(s.word)
         self.slist = sorted(s_list)
-        #print("slist: ", self.slist)
+        logger.debug("slist: %s", self.slist)
         return self.slist
 
 
@@ -36,14 +39,14 @@ class Anagram:
         for i in range(len(slist)):
             index2syll[i] = slist[i]
         self.i2syll = index2syll
-        #print("i2syll: ", self.i2syll)
+        logger.debug("i2syll: %s", self.i2syll)
         return index2syll
 
     # map syllable strings to syllable objects
     def set_syll2letters(self):
         syll2letters = dict([(s.word,s.letters) for s in self.language.syllables])
         self.syll2letters = syll2letters
-        #print("syll2letters: ", self.syll2letters)
+        logger.debug("syll2letters: %s", self.syll2letters)
         return syll2letters
 
     # add new entry to self.combinatiosn: key = tup,jtup), value= sum of tup's and # jtup's entries in self.combinations
@@ -52,26 +55,26 @@ class Anagram:
     def add_kvsum(self, tup, jtup, word):
         if tup + jtup in self.combinations.keys() or tup not in self.combinations.keys() or jtup not in self.combinations.keys():
             if tup + jtup in self.combinations.keys():
-                print("error: key ", tup + jtup, " exists already")
+                logger.warning("key %s exists already", tup + jtup)
             if not tup in self.combinations.keys():
-                print("error: ", tup, "not in dict")
+                logger.warning("%s not in self.combinations", tup)
             if not jtup in self.combinations.keys():
-                print("error: ", jtup, " not in dict")
+                logger.warning("%s not in self.combinations", jtup)
             return 0
 
         vsum = Word.add(self.combinations[tup],self.combinations[jtup])
         if word.contains(vsum):
-            #print("adding key ", tup + jtup, "with value ", vsum)
+            logger.debug("adding key %s with value %s", tup + jtup, vsum)
             self.combinations[tup + jtup] = vsum
             return 1
-        #print("not enough letters in word for ", vsum)
+        logger.debug("not enough letters in word for %s ", vsum)
         return 0
 
 
     def cat(self,tup,i):
-        #print("tup = ", tup, "i = ", i)
+        logger.debug("tup = %s, i = %s ", tup, i)
         if i >= len(self.slist):
-            #print("terminating condition")
+            logger.debug("terminating condition")
             return
 
         self.add_kvsum(tup, (i,), self.word)
@@ -94,24 +97,23 @@ class Anagram:
     def anagram(self):
         for i in range(len(self.slist)):
             self.cat((i,),i+1)
-        #print("combinations: ", self.combinations)
+        logger.debug("combinations: %s", self.combinations)
         anagrams = [[self.i2syll[x] for x in tup] for tup in self.combinations.keys() if self.word.letters == self.combinations[tup]]
-#        print("anagrams =\n", anagrams)
-#        print("joined strings:\n", ["-".join(a) for a in anagrams])
+        logger.debug("anagrams: %s", anagrams)
         return set(["-".join(a) for a in anagrams])
 
     def prepare(self):
         self.language.read(self.word)
         self.language.build_syllables(self.word)
         if self.language.nucleus == set():
-            print("word and language have no vowel in common!")
+            logger.warning("word and language have no vowel in common!")
         if self.language.syllables == set():
-            print("could not build syllables that can be comprised of letters in word!")
+            logger.warning("could not build syllables that can be comprised of letters in word!")
 
         slist = self.set_slist()
         self.set_i2syll(slist)
         self.set_syll2letters()
         self.combinations = dict([((i,),self.syll2letters[self.slist[i]]) for i in range(len(self.slist))])
-        #print("combinations: ", self.combinations)
+        logger.debug("combinations: %s", self.combinations)
 
         return self.slist
