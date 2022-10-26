@@ -14,6 +14,11 @@ class TestLanguage(unittest.TestCase):
         language2 = Language(langfile2)
         self.assertEqual(language2.name, "german")
 
+
+        langfile3 = 'german'
+        language3 = Language(langfile3)
+        self.assertEqual(language3.name, "german")
+
     def test_read(self):
         language = Language("smurf.txt")
         language.read()
