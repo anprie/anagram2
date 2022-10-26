@@ -158,6 +158,7 @@ rs 0 0 1
 lsch 0 0 1
 ls 0 0 1
 lk 0 0 1
+lkst 0 0 1
 lch 0 0 1
 ß 0 0 1
 rk 0 0 1
