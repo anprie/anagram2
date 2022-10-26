@@ -11,16 +11,19 @@ class Language:
         self.coda = set()
         self.nucleus = set()
         self.syllables = set()
-        
+
     def __str__(self):
         return f"language: {self.name}\nfile: {self.file}\nonset: {self.onset}\nnucleus: {self.nucleus}\ncoda: {self.coda}"
 
-    def read(self):
+    def read(self, w = ''):
         with open(self.file) as file:
             lines = 0
             for line in file.readlines():
                 lines += 1
                 (cluster, o, n, c) = [a.strip() for a in line.split(' ')]
+                if w and not w.contains(Word(cluster)):
+                    print(cluster, " not in ", w.word)
+                    continue
                 if n == '1':
                     self.nucleus.add(cluster)
                     continue
