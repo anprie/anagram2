@@ -96,11 +96,16 @@ class Anagram:
 #        print("joined strings:\n", ["-".join(a) for a in anagrams])
         return set(["-".join(a) for a in anagrams])
 
-    def prepare_language(self):
+    def prepare(self):
         self.language.read(self.word)
         self.language.build_syllables(self.word)
         if self.language.nucleus == set():
             print("word and language have no vowel in common!")
         if self.language.syllables == set():
             print("could not build syllables that can be comprised of letters in word!")
-        return self.language.syllables
+
+        self.set_slist
+        self.set_i2syll
+        self.set_syll2letters
+
+        return self.slist
