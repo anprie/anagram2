@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
 from anagram import Anagram
+from word import Word
+from language import Language
 
 import sys, getopt
 
@@ -22,9 +24,11 @@ def main(argv):
          language = arg
     print('word is "',word,'"')
     print('language is "',language,'"')
-    anagram = Anagram(word, language)
-    anagram.set_letters()
-    print(anagram)
+    anagram = Anagram(Word(word), Language(language))
+    anagram.prepare()
+    anagrams = anagram.anagram()
+    print("results:")
+    print(anagrams)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
