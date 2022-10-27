@@ -4,39 +4,29 @@ from anagram import Anagram
 from word import Word
 from language import Language
 
-import sys, getopt
+import sys
 import logging
-
-logging.basicConfig(format='%(asctime)s-%(levelname)s- %(message)s')
-
-logger = logging.getLogger()
-
-logger.setLevel(logging.INFO)
-
+import argparse
 
 
 def main(argv):
-    word = ''
-    language = ''
-    level = 'info'
-    try:
-      opts, args = getopt.getopt(argv,"hw:l:d:",["word=","language=", "debug="])
-    except getopt.GetoptError:
-      print( 'Usage:\n\tanagrammatize.py -w <word> -l <language_file>')
-      sys.exit(2)
-    for opt, arg in opts:
-      if opt == '-h':
-         print('Usage:\n\tanagrammatize.py -w <word> -l <language_file>')
-         sys.exit()
-      elif opt in ("-w", "--word"):
-         word = arg
-      elif opt in ("-l", "--language"):
-         language = arg
-      elif opt in ("-d", "--debug"):
-         level = arg
-    logger.info('word is "%s"',word)
-    logger.info('language is "%s"',language)
-    anagram = Anagram(Word(word), Language(language))
+
+    logging.basicConfig(format='%(asctime)s-%(levelname)s- %(message)s')
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+
+    parser = argparse.ArgumentParser(formatter_class=lambda prog: argparse.HelpFormatter(prog,max_help_position=50))
+
+    parser.add_argument("-l", "--language", default="german.txt", metavar="<filename>", help="the file containing the language data")
+    parser.add_argument("-v", "--verbosity", help="increase output verbosity", action="store_true")
+    parser.add_argument("word", help="the word to be anagrammatized")
+    args = parser.parse_args()
+
+    logger.info("args: %s", args)
+    logger.info('word is "%s"',args.word)
+    logger.info('language is "%s"',args.language)
+
+    anagram = Anagram(Word(args.word), Language(args.language))
     anagram.prepare()
     anagrams = anagram.anagram()
     logger.info('%d anagrams have been found', len(anagrams))
