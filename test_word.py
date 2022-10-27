@@ -1,6 +1,15 @@
 import unittest
 from word import Word
 
+import logging
+
+logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s %(message)s')
+
+logger = logging.getLogger()
+
+logger.setLevel(logging.DEBUG)
+
+
 class TestWord(unittest.TestCase):
 
     def test_word(self):

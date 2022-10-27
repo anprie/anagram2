@@ -4,7 +4,7 @@ from language import Language
 from anagram import Anagram
 import logging
 
-logging.basicConfig(format='%(asctime)s %(message)s')
+logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s %(message)s')
 
 logger = logging.getLogger()
 
