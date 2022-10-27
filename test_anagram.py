@@ -58,6 +58,18 @@ class TestAnagram(unittest.TestCase):
         'ur':{'r':1,'u':1}, 'urf':{'f':1,'r':1,'u':1}}
         self.assertEqual(syll2letters,s2l)
 
+    def test_set_syllcnt(self):
+        language = Language('smurf.txt')
+        word = Word('furu')
+        anagram = Anagram(word, language)
+        anagram.language.read(word)
+        anagram.language.build_syllables(word)
+        syllcnt = {0:1, 1:1, 2:1, 3:1, 4:1, 5:2, 6:1, 7:1, 8:1}
+        anagram.set_sorted_syllcnt()
+        self.assertEqual(syllcnt, anagram.syllcnt)
+        self.assertEqual(['fru', 'fu', 'fur', 'ru', 'ruf', 'u', 'uf', 'ur', 'urf'], anagram.sorted_sylls)
+
+
     def test_add_kvsum(self):
         word = Word('xyyyyzzz')
         anagram = Anagram(word, Language('german.txt'))

@@ -13,6 +13,8 @@ class Anagram:
         self.syll2letters = {}
         self.i2syll = {}
         self.slist = []
+        self.syllcnt = {}
+        self.sorted_sylls = []
         self.combinations = {}
 
     def __str__(self):
@@ -49,6 +51,16 @@ class Anagram:
         logger.debug("syll2letters: %s", self.syll2letters)
         return syll2letters
 
+    # how many times does each syllable fit into self.word.word?
+    # dict syllable string: count
+    def set_sorted_syllcnt(self):
+        sorted_sylls = sorted([s.word for s in list(self.language.syllables)])
+        self.sorted_sylls = sorted_sylls
+        logger.debug("sorted syllables: %s", self.sorted_sylls)
+        self.syllcnt = dict([(i, self.word.contains(Word(sorted_sylls[i]))) for i in range(len(sorted_sylls))])
+        logger.debug("syllcnt: %s", str(self.syllcnt))
+        return self.syllcnt
+
     # add new entry to self.combinatiosn: key = tup,jtup), value= sum of tup's and # jtup's entries in self.combinations
     # if v1+v2 is not contained in word, don't add the entry!
     # if tup or jtup are not in the self.combinations, don't add the entry
@@ -72,26 +84,18 @@ class Anagram:
 
 
     def cat(self,tup,i):
-        logger.debug("tup = %s, i = %s ", tup, i)
         if i >= len(self.slist):
-            logger.debug("terminating condition")
+            logger.debug("terminating condition: tup = %s, i = %s ", tup, i)
             return
 
         self.add_kvsum(tup, (i,), self.word)
 
 # TODO: avoid recursive calls for duplicate syllables as syllables can appear multiple times in slist
-#        duplicate = self.i2syll[tup[-1]] == self.i2syll[i]
-#        if duplicate:
-#            print("last syllable is same as current, skipping duplicates")
         for k in [tuple()] + [(j,) for j in range(i+1, len(self.slist))]:
-            #print("k = ", k)
             for m in range(i+1, len(self.slist)):
-                #print("m = ", m)
-                if k == tuple():# and not duplicate:
-                    #print("k is empty tuple and current syllable is not a duplicate")
+                if k == tuple():
                     return self.cat(tup+k, m)
-                if m>k[0]:# and k != tuple()
-                    #print("k is not empty tuple and m is > k")
+                if m>k[0]:
                     return self.cat(tup+k, m)
 
     def anagram(self):
