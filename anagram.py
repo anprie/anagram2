@@ -90,12 +90,14 @@ class Anagram:
 
         self.add_kvsum(tup, (i,), self.word)
 
-# TODO: avoid recursive calls for duplicate syllables as syllables can appear multiple times in slist
+        # TODO: use self.syllcnt to skip duplicate syllables
+        #count = self.syllcnt[] # TODO: map index in slist to index in sorted_sylls or use indices of sorted_sylls
         for k in [tuple()] + [(j,) for j in range(i+1, len(self.slist))]:
             for m in range(i+1, len(self.slist)):
                 if k == tuple():
                     return self.cat(tup+k, m)
-                if m>k[0]:
+                if m>k[0]:# if m>k[0]+count
+                    # return self.cat(tup+(k[0]+count-1,), m)
                     return self.cat(tup+k, m)
 
     def anagram(self):
