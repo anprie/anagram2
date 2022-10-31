@@ -1,6 +1,7 @@
 import re
 import copy
 from word import Word
+from language import Language
 import logging
 
 logger = logging.getLogger()
@@ -123,3 +124,8 @@ class Anagram:
         logger.debug("combinations: %s", self.combinations)
 
         return self.slist
+
+    def process(wstring, lfile):
+        a = Anagram(Word(wstring), Language(lfile))
+        a.prepare()
+        return a.anagram()

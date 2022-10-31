@@ -165,5 +165,9 @@ class TestAnagram(unittest.TestCase):
         self.assertEqual({'r'}, anagram3.language.coda)
         self.assertEqual(3, len(anagram3.language.syllables))
 
+    def test_process(self):
+        results  = Anagram.process('ru', 'smurf.txt')
+        self.assertEqual({'ur','ru'}, results)
+
 if __name__ == '__main__':
     unittest.main()
