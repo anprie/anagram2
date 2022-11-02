@@ -28,8 +28,7 @@ class Anagram:
         s_dict = dict([(w.word,w) for w in self.language.syllables])
         # self.sdict = s_dict?
         for s in list(self.language.syllables):
-            cnt = self.word.contains(s)
-            for i in range(cnt):
+            for i in range(self.word.contains(s)):
                 s_list.append(s.word)
         self.slist = sorted(s_list)
         logger.debug("slist: %s", self.slist)
@@ -38,12 +37,9 @@ class Anagram:
 
     # map index to syllable string
     def set_i2syll(self,slist):
-        index2syll = {}
-        for i in range(len(slist)):
-            index2syll[i] = slist[i]
-        self.i2syll = index2syll
+        self.i2syll = dict([(i, slist[i]) for i in range(len(slist))])
         logger.debug("i2syll: %s", self.i2syll)
-        return index2syll
+        return self.i2syll
 
     # map syllable strings to syllable objects
     def set_syll2letters(self):
@@ -101,6 +97,8 @@ class Anagram:
                     # return self.cat(tup+(k[0]+count-1,), m)
                     return self.cat(tup+k, m)
 
+    # start computation of anagrams, filter results (discard dead ends with to few letters)
+    # filters out duplicates, which in a future version won't be produced in the first place
     def anagram(self):
         for i in range(len(self.slist)):
             self.cat((i,),i+1)
@@ -109,6 +107,7 @@ class Anagram:
         logger.debug("anagrams: %s", anagrams)
         return set(["-".join(a) for a in anagrams])
 
+    # build attributes before calculating anagrams
     def prepare(self):
         self.language.read(self.word)
         self.language.build_syllables(self.word)
