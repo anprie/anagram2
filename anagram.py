@@ -82,9 +82,9 @@ class Anagram:
 
         self.add_kvsum(tup, (i,), self.word)
 
-        last_i = int(self.syllcnt[i]- tup.count(i) <= 0)
+        repeat_i = int(self.syllcnt[i]- tup.count(i) > 0)
 
-        for j in range(i+ last_i, len(self.slist)):
+        for j in range(i + 1 - repeat_i, len(self.slist)):
             return self.cat(tup + (i,), j)
 
 
@@ -114,7 +114,7 @@ class Anagram:
         self.combinations = dict([((i,),self.syll2letters[self.slist[i]]) for i in range(len(self.slist))])
         logger.debug("combinations: %s", self.combinations)
 
-        return self.slist
+        return self.combinations
 
     # wrapper for the whole process from object creation to output of results
     # the caller has to know nothing about the class
