@@ -70,23 +70,6 @@ class Anagram:
         return 0
 
 
-    def cat(self,tup,i):
-        if i >= len(self.slist):
-            logger.debug("terminating condition: tup = %s, i = %s ", tup, i)
-            return
-
-        self.add_kvsum(tup, (i,), self.word)
-
-        # TODO: use self.syllcnt to skip duplicate syllables
-        #count = self.syllcnt[] # TODO: map index in slist to index in sorted_sylls or use indices of sorted_sylls
-        for k in [tuple()] + [(j,) for j in range(i+1, len(self.slist))]:
-            for m in range(i+1, len(self.slist)):
-                if k == tuple():
-                    return self.cat(tup+k, m)
-                if m>k[0]:# if m>k[0]+count
-                    # return self.cat(tup+(k[0]+count-1,), m)
-                    return self.cat(tup+k, m)
-
     # use self.slist, which is a list of unique syllables
     # append the same index to the tuple when adding another instance of the same syllable
     # one for loop for recursive call is enough
@@ -104,6 +87,7 @@ class Anagram:
             return self.cat2(tup + (i,), j)
 
 
+    # start computation of anagrams, filter results (discard dead ends with to few letters)
     def anagram2(self):
         for i in range(len(self.slist)):
             self.cat2((i,), i+1)
@@ -112,15 +96,6 @@ class Anagram:
         logger.debug("anagrams: %s", anagrams)
         return set(["-".join(a) for a in anagrams])
 
-    # start computation of anagrams, filter results (discard dead ends with to few letters)
-    # filters out duplicates, which in a future version won't be produced in the first place
-    def anagram(self):
-        for i in range(len(self.slist)):
-            self.cat((i,),i+1)
-        logger.debug("combinations: %s", self.combinations)
-        anagrams = [[self.i2syll[x] for x in tup] for tup in self.combinations.keys() if self.word.letters == self.combinations[tup]]
-        logger.debug("anagrams: %s", anagrams)
-        return set(["-".join(a) for a in anagrams])
 
     # build attributes before calculating anagrams
     def prepare(self):
