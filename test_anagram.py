@@ -65,9 +65,10 @@ class TestAnagram(unittest.TestCase):
         anagram.language.read(word)
         anagram.language.build_syllables(word)
         syllcnt = {0:1, 1:1, 2:1, 3:1, 4:1, 5:2, 6:1, 7:1, 8:1}
+        anagram.set_slist()
         anagram.set_sorted_syllcnt()
         self.assertEqual(syllcnt, anagram.syllcnt)
-        self.assertEqual(['fru', 'fu', 'fur', 'ru', 'ruf', 'u', 'uf', 'ur', 'urf'], anagram.sorted_sylls)
+        self.assertEqual(['fru', 'fu', 'fur', 'ru', 'ruf', 'u', 'uf', 'ur', 'urf'], anagram.slist)
 
 
     def test_add_kvsum(self):

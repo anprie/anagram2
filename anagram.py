@@ -15,7 +15,6 @@ class Anagram:
         self.i2syll = {}
         self.slist = []
         self.syllcnt = {}
-        self.sorted_sylls = []
         self.combinations = {}
 
     def __str__(self):
@@ -45,10 +44,7 @@ class Anagram:
     # how many times does each syllable fit into self.word.word?
     # dict syllable string: count
     def set_sorted_syllcnt(self):
-        sorted_sylls = sorted([s.word for s in list(self.language.syllables)])
-        self.sorted_sylls = sorted_sylls
-        logger.debug("sorted syllables: %s", self.sorted_sylls)
-        self.syllcnt = dict([(i, self.word.contains(Word(sorted_sylls[i]))) for i in range(len(sorted_sylls))])
+        self.syllcnt = dict([(i, self.word.contains(Word(self.slist[i]))) for i in range(len(self.slist))])
         logger.debug("syllcnt: %s", str(self.syllcnt))
         return self.syllcnt
 
@@ -91,12 +87,12 @@ class Anagram:
                     # return self.cat(tup+(k[0]+count-1,), m)
                     return self.cat(tup+k, m)
 
-    # use self.sorted_sylls, which is a list of unique syllables
+    # use self.slist, which is a list of unique syllables
     # append the same index to the tuple when adding another instance of the same syllable
     # one for loop for recursive call is enough
     def cat2(self,tup,i):
-        if i >= len(self.sorted_sylls) or len(tup) >= sum([self.syllcnt[i] for i in range(len(self.sorted_sylls))]):
-            print("sum: ", sum([self.syllcnt[i] for i in range(len(self.sorted_sylls))]))
+        if i >= len(self.slist) or len(tup) >= sum([self.syllcnt[i] for i in range(len(self.slist))]):
+            print("sum: ", sum([self.syllcnt[i] for i in range(len(self.slist))]))
             logger.debug("terminating condition: tup = %s, i = %s ", tup, i)
             return
 
@@ -104,12 +100,12 @@ class Anagram:
 
         last_i = int(self.syllcnt[i]- tup.count(i) <= 0)
 
-        for j in range(i+ last_i, len(self.sorted_sylls)):
+        for j in range(i+ last_i, len(self.slist)):
             return self.cat2(tup + (i,), j)
 
 
     def anagram2(self):
-        for i in range(len(self.sorted_sylls)):
+        for i in range(len(self.slist)):
             self.cat2((i,), i+1)
         logger.debug("combinations: %s", self.combinations)
         anagrams = [[self.i2syll[x] for x in tup] for tup in self.combinations.keys() if self.word.letters == self.combinations[tup]]
