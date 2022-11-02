@@ -127,31 +127,13 @@ class TestAnagram(unittest.TestCase):
     def test_anagram(self):
         word = Word('furu')
         language = Language('smurf.txt')
-        language.read()
         anagram = Anagram(word, language)
-        anagram.language.boil_down(word)
-        anagram.language.build_syllables(word)
-        slist = anagram.set_slist()
-        i2syll = anagram.set_i2syll(slist)
-        syll2letters = anagram.set_syll2letters()
-        anagram.combinations = dict([((i,),syll2letters[anagram.slist[i]]) for i in range(len(anagram.slist))])
-        # [(0,),(0,5),(0,6),(1,),(1,3),(1,5),(1,6),(1,8),(2,),(2,5),(2,6),(3,),(3,5),(3,6),(3,7),(4,),(4,5),(4,6),(5,),(5,6),(5,7),(5,8),(5,9),(6,),(6,7),(6,8),(6,9),(7,),(7,8),(8,),(9,)]
-        # i2syll =  {0: 'fru', 1: 'fu', 2: 'fur', 3: 'ru', 4: 'ruf', 5: 'u', 6: 'u', 7: 'uf', 8: 'ur', 9: 'urf'}
+        anagram.prepare()
         anagrams = anagram.anagram()
         expected = {'fru-u','fu-ru','fur-u','fu-ur','ru-uf','ruf-u','u-urf','uf-ur'}
         self.assertEqual(expected, anagrams)
         stringsums = [len(string) for string in list(anagrams)]
         self.assertTrue(all(s== len(anagram.word.word)+1 for s in stringsums))
-
-    def test_anagram2(self):
-        word = Word('furu')
-        language = Language('smurf.txt')
-        language.read(word)
-        anagram = Anagram(word, language)
-        anagram.prepare()
-        anagrams = anagram.anagram()
-        anagrams2 = anagram.anagram2()
-        self.assertEqual(anagrams, anagrams2)
 
     def test_prepare(self):
         anagram = Anagram(Word('tuna'), Language('smurf.txt'))

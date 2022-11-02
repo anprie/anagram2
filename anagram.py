@@ -73,7 +73,7 @@ class Anagram:
     # use self.slist, which is a list of unique syllables
     # append the same index to the tuple when adding another instance of the same syllable
     # one for loop for recursive call is enough
-    def cat2(self,tup,i):
+    def cat(self,tup,i):
         if i >= len(self.slist) or len(tup) >= sum([self.syllcnt[i] for i in range(len(self.slist))]):
             print("sum: ", sum([self.syllcnt[i] for i in range(len(self.slist))]))
             logger.debug("terminating condition: tup = %s, i = %s ", tup, i)
@@ -84,13 +84,13 @@ class Anagram:
         last_i = int(self.syllcnt[i]- tup.count(i) <= 0)
 
         for j in range(i+ last_i, len(self.slist)):
-            return self.cat2(tup + (i,), j)
+            return self.cat(tup + (i,), j)
 
 
     # start computation of anagrams, filter results (discard dead ends with to few letters)
-    def anagram2(self):
+    def anagram(self):
         for i in range(len(self.slist)):
-            self.cat2((i,), i+1)
+            self.cat((i,), i+1)
         logger.debug("combinations: %s", self.combinations)
         anagrams = [[self.i2syll[x] for x in tup] for tup in self.combinations.keys() if self.word.letters == self.combinations[tup]]
         logger.debug("anagrams: %s", anagrams)
@@ -120,4 +120,4 @@ class Anagram:
     def process(wstring, lfile):
         a = Anagram(Word(wstring), Language(lfile))
         a.prepare()
-        return a.anagram2()
+        return a.anagram()
