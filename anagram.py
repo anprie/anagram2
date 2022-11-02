@@ -29,8 +29,8 @@ class Anagram:
 
 
     # map index to syllable string
-    def set_i2syll(self,slist):
-        self.i2syll = dict([(i, slist[i]) for i in range(len(slist))])
+    def set_i2syll(self):
+        self.i2syll = dict([(i, self.slist[i]) for i in range(len(self.slist))])
         logger.debug("i2syll: %s", self.i2syll)
         return self.i2syll
 
@@ -74,6 +74,7 @@ class Anagram:
     # append the same index to the tuple when adding another instance of the same syllable
     # one for loop for recursive call is enough
     def cat(self,tup,i):
+        print("i = ", i)
         if i >= len(self.slist) or len(tup) >= sum([self.syllcnt[i] for i in range(len(self.slist))]):
             print("sum: ", sum([self.syllcnt[i] for i in range(len(self.slist))]))
             logger.debug("terminating condition: tup = %s, i = %s ", tup, i)
@@ -107,7 +108,7 @@ class Anagram:
             logger.warning("could not build syllables that can be comprised of letters in word!")
 
         slist = self.set_slist()
-        self.set_i2syll(slist)
+        self.set_i2syll()
         self.set_syll2letters()
         self.set_syllcnt()
         self.combinations = dict([((i,),self.syll2letters[self.slist[i]]) for i in range(len(self.slist))])
