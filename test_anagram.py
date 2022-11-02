@@ -105,7 +105,7 @@ class TestAnagram(unittest.TestCase):
         anagram2.prepare()
         keys = [(0,),(0,5),(1,),(1,3),(1,5),(1,7),(2,),(2,5),(3,),(3,5),(3,6),(4,),(4,5),(5,),(5,6),(5,7),(5,8),(6,),(6,7),(7,),(8,)]
         filtered_keys = [(0,5),(1,3),(1,5),(1,7),(2,5),(3,5),(3,6),(4,5),(5,6),(5,7),(5,8),(6,7)]
-        for i in range(len(anagram.slist)):
+        for i in range(len(anagram2.slist)):
             anagram2.cat((i,),i+1)
         self.assertEqual(sorted(keys), sorted(anagram2.combinations.keys()))
 
