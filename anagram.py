@@ -83,7 +83,11 @@ class Anagram:
             logger.debug("terminating condition: tup = %s, i = %s ", tup, i)
             return
 
-        self.add_kvsum(tup, (i,), self.word)
+        added = self.add_kvsum(tup, (i,), self.word)
+
+        if not added:
+            logger.debug("no entry with key %s + (%s,) added", tup, i)
+            return
 
         # number of instances that fit into word minus instances already in tup 
         # current instance is not yet in tup, therefore 1, not 0
