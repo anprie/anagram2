@@ -19,8 +19,8 @@ class Language:
         return f"language: {self.name}\nfile: {self.file}\nonset: {self.onset}\nnucleus: {self.nucleus}\ncoda: {self.coda}"
 
     def read(self, word = ''):
-        if word:
-            logger.debug("word in read: %s", word)
+        if not word:
+            logger.info("method read called without argument")
         with open(self.file) as file:
             lines = 0
             for line in file.readlines():
