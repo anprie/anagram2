@@ -143,6 +143,16 @@ class TestAnagram(unittest.TestCase):
         stringsums = [len(string) for string in list(anagrams)]
         self.assertTrue(all(s== len(anagram.word.word)+1 for s in stringsums))
 
+    def test_anagram2(self):
+        word = Word('furu')
+        language = Language('smurf.txt')
+        language.read(word)
+        anagram = Anagram(word, language)
+        anagram.prepare()
+        anagrams = anagram.anagram()
+        anagrams2 = anagram.anagram2()
+        self.assertEqual(anagrams, anagrams2)
+
     def test_prepare(self):
         anagram = Anagram(Word('tuna'), Language('smurf.txt'))
         anagram.prepare()
