@@ -43,7 +43,7 @@ class Anagram:
 
     # how many times does each syllable fit into self.word.word?
     # dict syllable string: count
-    def set_sorted_syllcnt(self):
+    def set_syllcnt(self):
         self.syllcnt = dict([(i, self.word.contains(Word(self.slist[i]))) for i in range(len(self.slist))])
         logger.debug("syllcnt: %s", str(self.syllcnt))
         return self.syllcnt
@@ -109,7 +109,7 @@ class Anagram:
         slist = self.set_slist()
         self.set_i2syll(slist)
         self.set_syll2letters()
-        self.set_sorted_syllcnt()
+        self.set_syllcnt()
         self.combinations = dict([((i,),self.syll2letters[self.slist[i]]) for i in range(len(self.slist))])
         logger.debug("combinations: %s", self.combinations)
 
