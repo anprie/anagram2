@@ -85,7 +85,9 @@ class Anagram:
 
         self.add_kvsum(tup, (i,), self.word)
 
-        repeat_i = int(self.syllcnt[i]- tup.count(i) > 0)
+        # number of instances that fit into word minus instances already in tup 
+        # current instance is not yet in tup, therefore 1, not 0
+        repeat_i = int(self.syllcnt[i]- tup.count(i)  > 1)
 
         for j in range(i + 1 - repeat_i, len(self.slist)):
             return self.cat(tup + (i,), j)
