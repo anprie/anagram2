@@ -16,7 +16,6 @@ class Anagram:
         self.slist = []
         self.syllcnt = {}
         self.combinations = {}
-        self.max_sylls = 0
 
     def __str__(self):
         return f"Object Anagram\nword: {self.word.word}\nlanguage: {self.language.name}\nletters: {self.word.letters}"
@@ -47,8 +46,6 @@ class Anagram:
     def set_syllcnt(self):
         self.syllcnt = dict([(i, self.word.contains(Word(self.slist[i]))) for i in range(len(self.slist))])
         logger.debug("syllcnt: %s", str(self.syllcnt))
-        self.max_sylls = sum([self.syllcnt[i] for i in range(len(self.slist))])
-        logger.debug("max_sylls: %s", self.max_sylls)
         return self.syllcnt
 
     # add new entry to self.combinations: key = tup+jtup, value= sum of tup's and jtup's entries 
