@@ -75,20 +75,22 @@ class TestAnagram(unittest.TestCase):
         word = Word('xyyyyzzz')
         anagram = Anagram(word, Language('german.txt'))
         anagram.combinations = {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2}}
-        anagram.add_kvsum((2,),(4,),word )
+        anagram.add_kvsum((2,),(4,))
         self.assertEqual(anagram.combinations, {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2},(2,4):{'x':1,'y':4,'z':3}})
 
         del anagram.combinations[(2,4)]
 
         # don't add if key already exists
         anagram.combinations[(2,4)] = {}
-        anagram.add_kvsum((2,),(4,), Word('xyyyyzzz'))
+        anagram.add_kvsum((2,),(4,))
         self.assertEqual(anagram.combinations, {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2},(2,4):{}})
 
         del anagram.combinations[(2,4)]
 
         # don't add if word hasn't got enough letters
-        anagram.add_kvsum((2,),(4,), Word('xyyyzzz'))
+        anagram2 = Anagram(Word('xyyyzzz'),Language('german.txt'))
+        anagram2.prepare()
+        anagram2.add_kvsum((2,),(4,))
         self.assertEqual(anagram.combinations, {(2,):{'x':1,'y':2,'z':3},(4,):{'y':2}})
 
     def test_cat(self):

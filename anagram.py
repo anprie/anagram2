@@ -52,9 +52,9 @@ class Anagram:
         return self.syllcnt
 
     # add new entry to self.combinatiosn: key = (tup,jtup), value= sum of tup's and # jtup's entries in self.combinations
-    # if v1+v2 is not contained in word, don't add the entry!
+    # if v1+v2 is not contained in self.word, don't add the entry!
     # if tup or jtup are not in the self.combinations, don't add the entry
-    def add_kvsum(self, tup, jtup, word):
+    def add_kvsum(self, tup, jtup):
         if tup + jtup in self.combinations.keys() or tup not in self.combinations.keys() or jtup not in self.combinations.keys():
             if tup + jtup in self.combinations.keys():
                 logger.warning("key %s exists already", tup + jtup)
@@ -65,7 +65,7 @@ class Anagram:
             return 0
 
         vsum = Word.add(self.combinations[tup],self.combinations[jtup])
-        if word.contains(vsum):
+        if self.word.contains(vsum):
             logger.debug("adding key %s with value %s", tup + jtup, vsum)
             self.combinations[tup + jtup] = vsum
             return 1
@@ -83,7 +83,7 @@ class Anagram:
             return
 
         for k in range(i, len(self.slist)):
-            added = self.add_kvsum(tup, (k,), self.word)
+            added = self.add_kvsum(tup, (k,))
             if added:
                 if k == i and self.syllcnt[i] - tup.count(i) <= 1:
                     next
