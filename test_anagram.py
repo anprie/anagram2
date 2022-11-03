@@ -9,7 +9,7 @@ logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s %(message)s')
 
 logger = logging.getLogger()
 
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.WARN)
 
 
 class TestAnagram(unittest.TestCase):
@@ -103,11 +103,15 @@ class TestAnagram(unittest.TestCase):
 
         anagram2 = Anagram(Word('furu'),Language('smurf.txt'))
         anagram2.prepare()
-        keys = [(0,),(0,5),(1,),(1,3),(1,5),(1,7),(2,),(2,5),(3,),(3,5),(3,6),(4,),(4,5),(5,),(5,6),(5,7),(5,8),(6,),(6,7),(7,),(8,)]
+        print("syllcnt: ", anagram2.syllcnt)#  {0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 2, 6: 1, 7: 1, 8: 1}
+        keys = [(0,),(0,5),(1,),(1,3),(1,5),(1,7),(2,),(2,5),(3,),(3,5),(3,6),(4,),(4,5),(5,),(5,5),(5,6),(5,7),(5,8),(6,),(6,7),(7,),(8,)]
         filtered_keys = [(0,5),(1,3),(1,5),(1,7),(2,5),(3,5),(3,6),(4,5),(5,6),(5,7),(5,8),(6,7)]
         for i in range(len(anagram2.slist)):
-            anagram2.cat((i,),i+1)
+            #anagram2.cat((i,),i+1)
+            anagram2.cat((i,),i)
         self.assertEqual(sorted(keys), sorted(anagram2.combinations.keys()))
+        #-  (1, 5), -  (1, 7), -  (3, 6), -  (5, 7), -  (5, 8),
+
 
     def test_anagram(self):
         word = Word('furu')

@@ -73,34 +73,39 @@ class Anagram:
         return 0
 
 
-    # use self.slist, which is a list of unique syllables
-    # append the same index to the tuple when adding another instance of the same syllable
-    # one for loop for recursive call is enough
+    # try to add all remaining indices to current tuple
+    # if successful, recursive call for the added tuple
+    # recursive call for same index only if there are instances of that syllable left
     def cat(self,tup,i):
-        print("i = ", i)
-        #if i >= len(self.slist) or len(tup) >= sum([self.syllcnt[i] for i in range(len(self.slist))]):
-        if i >= len(self.slist) or len(tup) >= self.max_sylls:
-            logger.debug("terminating condition: tup = %s, i = %s ", tup, i)
+        if i >= len(self.slist):
+            # shouldn't happen
+            logger.warn("terminating: i = %s >= %s", i, len(self.slist))
+            return
+        if len(tup) >= self.max_sylls:
+            # shouldn't happen
+            logger.warn("terminating: len(tup)= %s >= %s", len(tup), self.max_sylls)
+            return
+        if tup not in self.combinations:
+            # shouldn't happen
+            logger.info("terminating: %s not in combinations", tup)
             return
 
-        added = self.add_kvsum(tup, (i,), self.word)
+        repeat_i = int(self.syllcnt[i]- tup.count(i) > 1)
 
-        if not added:
-            logger.debug("no entry with key %s + (%s,) added", tup, i)
-            return
+        for k in range(i, len(self.slist)):
+            added = self.add_kvsum(tup, (k,), self.word)
+            if added:
+                if k == i and self.syllcnt[i] - tup.count(i) <= 1:
+                    next
+                self.cat(tup + (k,), k)
 
-        # number of instances that fit into word minus instances already in tup 
-        # current instance is not yet in tup, therefore 1, not 0
-        repeat_i = int(self.syllcnt[i]- tup.count(i)  > 1)
-
-        for j in range(i + 1 - repeat_i, len(self.slist)):
-            return self.cat(tup + (i,), j)
+        return
 
 
     # start computation of anagrams, filter results (discard dead ends with to few letters)
     def anagram(self):
         for i in range(len(self.slist)):
-            self.cat((i,), i+1)
+            self.cat((i,), i)
         logger.debug("combinations: %s", self.combinations)
         anagrams = [[self.i2syll[x] for x in tup] for tup in self.combinations.keys() if self.word.letters == self.combinations[tup]]
         logger.debug("anagrams: %s", anagrams)
