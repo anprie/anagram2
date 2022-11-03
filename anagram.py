@@ -77,20 +77,10 @@ class Anagram:
     # if successful, recursive call for the added tuple
     # recursive call for same index only if there are instances of that syllable left
     def cat(self,tup,i):
-        if i >= len(self.slist):
-            # shouldn't happen
-            logger.warn("terminating: i = %s >= %s", i, len(self.slist))
-            return
-        if len(tup) >= self.max_sylls:
-            # shouldn't happen
-            logger.warn("terminating: len(tup)= %s >= %s", len(tup), self.max_sylls)
-            return
-        if tup not in self.combinations:
-            # shouldn't happen
-            logger.info("terminating: %s not in combinations", tup)
-            return
 
-        repeat_i = int(self.syllcnt[i]- tup.count(i) > 1)
+        if tup not in self.combinations or i >= len(self.slist):
+            logger.warning("cat called with illegal parameters %s, %s", tup, i)
+            return
 
         for k in range(i, len(self.slist)):
             added = self.add_kvsum(tup, (k,), self.word)
