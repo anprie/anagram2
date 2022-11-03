@@ -51,8 +51,8 @@ class Anagram:
         logger.debug("max_sylls: %s", self.max_sylls)
         return self.syllcnt
 
-    # add new entry to self.combinatiosn: key = (tup,jtup), value= sum of tup's and # jtup's entries in self.combinations
-    # if v1+v2 is not contained in self.word, don't add the entry!
+    # add new entry to self.combinations: key = tup+jtup, value= sum of tup's and jtup's entries 
+    # if v1+v2 doesn't fit into self.word, don't add the entry
     # if tup or jtup are not in the self.combinations, don't add the entry
     def add_kvsum(self, tup, jtup):
         if tup + jtup in self.combinations.keys() or tup not in self.combinations.keys() or jtup not in self.combinations.keys():
@@ -92,7 +92,7 @@ class Anagram:
         return
 
 
-    # start computation of anagrams, filter results (discard dead ends with to few letters)
+    # start computation of anagrams, filter results (discard dead ends with too few letters)
     def anagram(self):
         for i in range(len(self.slist)):
             self.cat((i,), i)
@@ -111,17 +111,18 @@ class Anagram:
         if self.language.syllables == set():
             logger.warning("could not build syllables that can be comprised of letters in word!")
 
-        slist = self.set_slist()
+        self.set_slist()
         self.set_i2syll()
         self.set_syll2letters()
         self.set_syllcnt()
+        # initiate dictionary which is used by add_kvsum
         self.combinations = dict([((i,),self.syll2letters[self.slist[i]]) for i in range(len(self.slist))])
         logger.debug("combinations: %s", self.combinations)
 
         return self.combinations
 
     # wrapper for the whole process from object creation to output of results
-    # the caller has to know nothing about the class
+    # the caller needs to know nothing about the class
     def process(wstring, lfile):
         a = Anagram(Word(wstring), Language(lfile))
         a.prepare()
