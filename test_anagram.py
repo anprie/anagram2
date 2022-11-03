@@ -96,23 +96,20 @@ class TestAnagram(unittest.TestCase):
     def test_cat(self):
         anagram = Anagram(Word('fur'),Language('smurf.txt'))
         anagram.prepare()
-        # ['fru', 'fu', 'fur', 'ru', 'ruf', 'u', 'uf', 'ur', 'urf']
-        # {0:'fru',1:'fu',2:'fur',3:'ru',4:'ruf',5:'u',6:'uf',7:'ur',8:'urf'}
+        # anagram.slist = ['fru', 'fu', 'fur', 'ru', 'ruf', 'u', 'uf', 'ur', 'urf']
+        # anagram.i2syll = {0:'fru',1:'fu',2:'fur',3:'ru',4:'ruf',5:'u',6:'uf',7:'ur',8:'urf'}
         for i in range(len(anagram.slist)):
-            anagram.cat((i,),i+1)
+            anagram.cat((i,),i)
         # nothing should have been added because there can't be more than one syllable (as there is only one nucleus/vowel)
         self.assertEqual((8,), max(anagram.combinations.keys()))
 
         anagram2 = Anagram(Word('furu'),Language('smurf.txt'))
         anagram2.prepare()
-        print("syllcnt: ", anagram2.syllcnt)#  {0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 2, 6: 1, 7: 1, 8: 1}
+        # anagram2.syllcnt = {0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 2, 6: 1, 7: 1, 8: 1}
         keys = [(0,),(0,5),(1,),(1,3),(1,5),(1,7),(2,),(2,5),(3,),(3,5),(3,6),(4,),(4,5),(5,),(5,5),(5,6),(5,7),(5,8),(6,),(6,7),(7,),(8,)]
-        filtered_keys = [(0,5),(1,3),(1,5),(1,7),(2,5),(3,5),(3,6),(4,5),(5,6),(5,7),(5,8),(6,7)]
         for i in range(len(anagram2.slist)):
-            #anagram2.cat((i,),i+1)
             anagram2.cat((i,),i)
         self.assertEqual(sorted(keys), sorted(anagram2.combinations.keys()))
-        #-  (1, 5), -  (1, 7), -  (3, 6), -  (5, 7), -  (5, 8),
 
 
     def test_anagram(self):
