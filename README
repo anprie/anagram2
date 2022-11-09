@@ -1,0 +1,31 @@
+This anagram generator returns only those anagrams that consist of pronounceable syllables rather than all permutations of a word's letters. Pronounceability is specified by a language file, see below.
+
+
+How does it work?
+
+The language data is used to create syllables. After that, the syllables are concatenated. If the letters of a combination of syllables sum up to the letters of the input word, that combination will appear in the results list.
+
+
+What does the minus in the resulting anagrams stand for?
+
+The output is a list of anagrams, the syllables of which are separated by a minus. If you ignore the minus the results list seems to contain duplicates. But since each result stands for the set of syllables of which it is comprised, i.e. for all permutations of its elements, it can usually be rearranged to a unique result.
+
+
+What makes it efficient?
+
+1. The language specific information reduces the number of legal letter combinations on a micro level (which requires some manual work in advance, preferably by a native speaker).
+2. The letters of the input word are used to filter first the clusters and then the syllables.
+3. No combination of syllables (no matter what order) is generated twice.
+
+
+What's in the language file?
+
+Each line of the language file consists of a cluster string followed by three flags (0 or 1), separated by spaces for readability, for example:
+
+ou 1 1 1
+str 1 0 0
+mpfst 0 0 1
+
+The first flag provides the answer to the question 'Does the cluster occur at the beginning (i.e. the onset) of a syllable (if followed by a vowel)?'
+The second flag answers the question 'Is the unaccompanied cluster a valid syllable?' This is usually true for vowels, though there might be languages where some consonants can be used like vowels (such consonants are called syllabic consonants). All of those vowel-like clusters will be treated as complete syllables even if they don't actually occur without onset or coda consonants. The reason is that they are assumed to be pronouncable (In a future version the onset and coda flags can be used to specify if a vowel cluster is actually a valid syllable all by itself).
+The third flag answers the question 'Does the cluster occur at the end of a syllable (after a vowel)?'
