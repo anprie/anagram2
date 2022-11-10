@@ -26,9 +26,6 @@ def main(argv):
     logger.info('word is "%s"',args.word)
     logger.info('language is "%s"',args.language)
 
-    #anagram = Anagram(Word(args.word), Language(args.language))
-    #anagram.prepare()
-    #anagrams = anagram.anagram()
     anagrams = Anagram.process(args.word, args.language)
     logger.info('%d anagrams have been found', len(anagrams))
     logger.info('results: "%s"',anagrams)
