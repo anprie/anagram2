@@ -149,5 +149,8 @@ class TestAnagram(unittest.TestCase):
         results  = Anagram.process('ru', 'smurf.txt')
         self.assertEqual({'ur','ru'}, results)
 
+        results2 = Anagram.process('ru', 'german')
+        self.assertEqual({'ur','ru'}, results2)
+
 if __name__ == '__main__':
     unittest.main()

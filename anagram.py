@@ -121,6 +121,8 @@ class Anagram:
     # wrapper for the whole process from object creation to output of results
     # the caller needs to know nothing about the class
     def process(wstring, lfile):
+        if not '.' in lfile:
+            lfile = lfile + '.txt'
         a = Anagram(Word(wstring), Language(lfile))
         a.prepare()
         return a.anagram()
