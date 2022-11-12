@@ -38,6 +38,7 @@ class Language:
 
         if self.nucleus == set():
             logger.warning("no vowels in language!")
+        self.remove_vowel_clusters()
         return lines
 
 
@@ -51,6 +52,8 @@ class Language:
             logger.warning("no vowels in language!")
         return (self.onset, self.nucleus, self.coda)
 
+    # remove complex clusters from nucleus if its letters are in nucleus
+    # (those clusters will be built by concatenation)
     def remove_vowel_clusters(self):
         N = list(self.nucleus)
         for v in N:
