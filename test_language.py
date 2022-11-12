@@ -66,6 +66,12 @@ class TestLanguage(unittest.TestCase):
         syll = sorted([i.word for i in list(language.build_syllables(word))])
         self.assertEqual(syllables, syll)
 
+    def test_remove_vowel_clusters(self):
+        language = Language('somelanguage.txt')
+        language.nucleus = {'a','au','u','ou'}
+        language.remove_vowel_clusters()
+        self.assertEqual(language.nucleus, {'a','u','ou'})
+
 
 if __name__ == '__main__':
     unittest.main()

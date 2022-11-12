@@ -10,10 +10,10 @@ class Language:
     def __init__(self, lang_file):
         self.file = lang_file
         self.name = lang_file.split(sep='.', maxsplit=1)[0]
-        self.onset = set()
-        self.coda = set()
-        self.nucleus = set()
-        self.syllables = set()
+        self.onset = set()      # of strings
+        self.coda = set()       # of strings
+        self.nucleus = set()    # of strings
+        self.syllables = set()  # of Word objects
 
     def __str__(self):
         return f"language: {self.name}\nfile: {self.file}\nonset: {self.onset}\nnucleus: {self.nucleus}\ncoda: {self.coda}"
@@ -41,7 +41,7 @@ class Language:
         return lines
 
 
-    # remove all syllables that can't be comprised of the input word's letters
+    # remove all clusters that can't be comprised of the input word's letters
     def boil_down(self, word):
         for c_set in [self.onset, self.nucleus, self.coda]:
             for c in list(c_set):
@@ -51,6 +51,13 @@ class Language:
             logger.warning("no vowels in language!")
         return (self.onset, self.nucleus, self.coda)
 
+    def remove_vowel_clusters(self):
+        N = list(self.nucleus)
+        for v in N:
+            if  len(v)>1:
+                if len({a for a in v if a in self.nucleus}) == len(v):
+                    self.nucleus.remove(v)
+        return self.nucleus
 
 
     # put onset, nucleus, and coda together to form syllables
