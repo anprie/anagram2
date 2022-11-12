@@ -58,7 +58,8 @@ class Language:
         N = list(self.nucleus)
         for v in N:
             if  len(v)>1:
-                if len({a for a in v if a in self.nucleus}) == len(v):
+                if len([a for a in v if a in self.nucleus]) == len(v):
+                    logger.debug("removing '", v, "'")
                     self.nucleus.remove(v)
         return self.nucleus
 
