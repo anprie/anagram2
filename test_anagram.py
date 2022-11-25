@@ -19,22 +19,21 @@ class TestAnagram(unittest.TestCase):
         self.word = Word('furu')
         self.wordx = Word('xyyyzzz')
         self.wordy = Word('xyyyyzzz')
+        self.anagram = Anagram(self.word, self.smurf)
 
     def test_language(self):
         anagram = Anagram(Word('bcbcba'), self.smurf)
         self.assertEqual(anagram.language.nucleus, {'u'})
 
     def test_set_slist(self):
-        anagram = Anagram(self.word, self.smurf)
+        anagram = deepcopy(self.anagram)
         anagram.language.boil_down(self.word)
         anagram.language.build_syllables(self.word)
         s_list = anagram.set_slist()
         self.assertEqual(['fru', 'fu', 'fur', 'ru', 'ruf', 'u', 'uf', 'ur', 'urf'], s_list)
 
     def test_set_i2syll(self):
-        language = Language('smurf.txt')
-        language.read()
-        anagram = Anagram(self.word, language)
+        anagram = deepcopy(self.anagram)
         anagram.language.boil_down(self.word)
         anagram.language.build_syllables(self.word)
         s_list = anagram.set_slist()
@@ -42,7 +41,7 @@ class TestAnagram(unittest.TestCase):
         self.assertEqual(i2syll,{0:'fru',1:'fu',2:'fur',3:'ru',4:'ruf',5:'u',6:'uf',7:'ur',8:'urf'})
 
     def test_set_syll2letters(self):
-        anagram = Anagram(self.word, self.smurf)
+        anagram = deepcopy(self.anagram)
         anagram.language.boil_down(self.word)
         anagram.language.build_syllables(self.word)
         syll2letters = anagram.set_syll2letters()
@@ -54,7 +53,7 @@ class TestAnagram(unittest.TestCase):
         self.assertEqual(syll2letters,s2l)
 
     def test_set_syllcnt(self):
-        anagram = Anagram(self.word, self.smurf)
+        anagram = deepcopy(self.anagram)
         anagram.language.read(self.word)
         anagram.language.build_syllables(self.word)
         syllcnt = {0:1, 1:1, 2:1, 3:1, 4:1, 5:2, 6:1, 7:1, 8:1}
@@ -103,7 +102,7 @@ class TestAnagram(unittest.TestCase):
         self.assertEqual(sorted(keys), sorted(anagram2.combinations.keys()))
 
     def test_anagram(self):
-        anagram = Anagram(self.word, self.smurf)
+        anagram = deepcopy(self.anagram)
         anagram.prepare()
         anagrams = anagram.anagram()
         expected = {'fru-u','fu-ru','fur-u','fu-ur','ru-uf','ruf-u','u-urf','uf-ur'}
