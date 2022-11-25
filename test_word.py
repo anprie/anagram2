@@ -2,15 +2,16 @@ import unittest
 from word import Word
 
 import logging
-
 logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s %(message)s')
-
 logger = logging.getLogger()
-
 logger.setLevel(logging.DEBUG)
 
 
 class TestWord(unittest.TestCase):
+    def setUp(self):
+        self.word1 = Word('aaabbcd')
+        self.word2 = Word('abc')
+        self.word3 = Word('aaaabbbccd')
 
     def test_word(self):
         word = Word('remove \t\n\rw h i t e s p a c e')
@@ -39,36 +40,36 @@ class TestWord(unittest.TestCase):
         word = Word('aaabbcd')
         word2 = Word('abc')
 
-        diff = word.ldiff(word)
+        diff = self.word1.ldiff(self.word1)
         self.assertEqual(diff, {'a':0, 'b':0, 'c':0, 'd':0})
 
-        diff1 = word.ldiff(word2)
+        diff1 = self.word1.ldiff(self.word2)
         self.assertEqual(diff1, {'a':2, 'b':1, 'c':0, 'd':1})
 
-        diff2 = word2.ldiff(word)
+        diff2 = self.word2.ldiff(self.word1)
         self.assertEqual(diff2, {'a':-2, 'b':-1, 'c':0, 'd':-1})
 
     def test_lsum(self):
         word = Word('aaabbcd')
         word2 = Word('abc')
 
-        lsum = word.lsum(word2)
+        lsum = self.word1.lsum(self.word2)
         self.assertEqual(lsum, {'a':4, 'b':3, 'c':2, 'd':1})
 
-        lsum2 = word2.lsum(word)
+        lsum2 = self.word2.lsum(self.word1)
         self.assertEqual(lsum2, {'a':4, 'b':3, 'c':2, 'd':1})
 
     def test_contains(self):
         word = Word('aaaabbbccd')
         word2 = Word('abc')
 
-        w_in_w2 = word.contains(word2)
+        w_in_w2 = self.word3.contains(self.word2)
         self.assertEqual(w_in_w2, 2)
 
-        w2_in_w = word2.contains(word)
+        w2_in_w = self.word2.contains(self.word3)
         self.assertEqual(w2_in_w, 0)
 
-        w_in_w = word.contains(word)
+        w_in_w = word.contains(self.word3)
         self.assertEqual(w_in_w, 1)
 
 if __name__ == '__main__':
