@@ -8,69 +8,65 @@ logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s %(message)s')
 
 logger = logging.getLogger()
 
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 
 class TestLanguage(unittest.TestCase):
+    def setUp(self):
+        self.german = Language("german.txt")
+        self.smurf = Language("smurf.txt")
+        self.word = Word('fur')
 
     def test_name(self):
-        lang_file = "german.txt"
-        language = Language(lang_file)
+        self.assertEqual(self.german.name, "german")
+
+        language = Language('german.txt.txt')
         self.assertEqual(language.name, "german")
 
-        langfile2 = 'german.txt.txt'
-        language2 = Language(langfile2)
-        self.assertEqual(language2.name, "german")
-
-
-        langfile3 = 'german'
-        language3 = Language(langfile3)
-        self.assertEqual(language3.name, "german")
+        language1 = Language('german')
+        self.assertEqual(language1.name, "german")
 
     def test_read(self):
-        language = Language("smurf.txt")
-        language.read()
-        self.assertEqual(language.onset, {'s','m','r','f','fr','sm'})
-        self.assertEqual(language.nucleus, {'u'})
-        self.assertEqual(language.coda, {'s','m','r','f','rm','rf','rs','sm','mf'})
+        self.smurf.read()
+        self.assertEqual(self.smurf.onset, {'s','m','r','f','fr','sm'})
+        self.assertEqual(self.smurf.nucleus, {'u'})
+        self.assertEqual(self.smurf.coda, {'s','m','r','f','rm','rf','rs','sm','mf'})
 
-        language2 = Language("smurf.txt")
-        language2.read(Word('fur'))
-        self.assertEqual(language2.onset, {'r','f','fr'})
-        self.assertEqual(language2.nucleus, {'u'})
-        self.assertEqual(language2.coda, {'r','f','rf'})
+        language = Language("smurf.txt")
+        language.read(self.word)
+        self.assertEqual(language.onset, {'r','f','fr'})
+        self.assertEqual(language.nucleus, {'u'})
+        self.assertEqual(language.coda, {'r','f','rf'})
 
     def test_boil_down(self):
-        language = Language('smurf.txt')
-        language.read()
-        word = Word('fur')
-        language.boil_down(word)
+        smurf = Language('smurf.txt')
+        smurf.read()
+        smurf.boil_down(self.word)
 
-        self.assertEqual({'f','r','fr'}, language.onset)
-        self.assertEqual({'u'}, language.nucleus)
-        self.assertEqual({'f','r','rf'}, language.coda)
+        self.assertEqual({'f','r','fr'}, smurf.onset)
+        self.assertEqual({'u'}, smurf.nucleus)
+        self.assertEqual({'f','r','rf'}, smurf.coda)
 
-        language2 = Language('german.txt')
-        language2.read()
-        language2.boil_down(word)
-        self.assertEqual({'f','r','fr'}, language2.onset)
-        self.assertEqual({'u'}, language2.nucleus)
-        self.assertEqual({'f','r','rf'}, language2.coda)
+        german = Language('german.txt')
+        german.read()
+        german.boil_down(self.word)
+        self.assertEqual({'f','r','fr'}, german.onset)
+        self.assertEqual({'u'}, german.nucleus)
+        self.assertEqual({'f','r','rf'}, german.coda)
 
 
     def test_build_syllables(self):
-        language = Language('smurf.txt')
-        language.read()
-        word = Word('fur')
+        smurf = Language('smurf.txt')
+        smurf.read()
         syllables = sorted(['fur','ur','uf','fu','urf','fru','ruf','ru','u'])
-        syll = sorted([i.word for i in list(language.build_syllables(word))])
+        syll = sorted([i.word for i in list(smurf.build_syllables(self.word))])
         self.assertEqual(syllables, syll)
 
     def test_remove_vowel_clusters(self):
-        language = Language('somelanguage.txt')
-        language.nucleus = {'a','au','u','ou'}
-        language.remove_vowel_clusters()
-        self.assertEqual(language.nucleus, {'a','u','ou'})
+        somelanguage = Language('somelanguage.txt')
+        somelanguage.nucleus = {'a','au','u','ou'}
+        somelanguage.remove_vowel_clusters()
+        self.assertEqual(somelanguage.nucleus, {'a','u','ou'})
 
 
 if __name__ == '__main__':
