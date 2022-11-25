@@ -37,31 +37,18 @@ class TestWord(unittest.TestCase):
         self.assertEqual(word.letters, {'c':1,'e':2,'l':1,'n':1,'o':1,'r':1,'s':1,'t':3,'u':1})
 
     def test_ldiff(self):
-        diff = self.word1.ldiff(self.word1)
-        self.assertEqual(diff, {'a':0, 'b':0, 'c':0, 'd':0})
-
-        diff1 = self.word1.ldiff(self.word2)
-        self.assertEqual(diff1, {'a':2, 'b':1, 'c':0, 'd':1})
-
-        diff2 = self.word2.ldiff(self.word1)
-        self.assertEqual(diff2, {'a':-2, 'b':-1, 'c':0, 'd':-1})
+        self.assertEqual(self.word1.ldiff(self.word1), {'a':0, 'b':0, 'c':0, 'd':0})
+        self.assertEqual(self.word1.ldiff(self.word2), {'a':2, 'b':1, 'c':0, 'd':1})
+        self.assertEqual(self.word2.ldiff(self.word1), {'a':-2, 'b':-1, 'c':0, 'd':-1})
 
     def test_lsum(self):
-        lsum = self.word1.lsum(self.word2)
-        self.assertEqual(lsum, {'a':4, 'b':3, 'c':2, 'd':1})
-
-        lsum2 = self.word2.lsum(self.word1)
-        self.assertEqual(lsum2, {'a':4, 'b':3, 'c':2, 'd':1})
+        self.assertEqual(self.word1.lsum(self.word2), {'a':4, 'b':3, 'c':2, 'd':1})
+        self.assertEqual(self.word2.lsum(self.word1), {'a':4, 'b':3, 'c':2, 'd':1})
 
     def test_contains(self):
-        w_in_w2 = self.word3.contains(self.word2)
-        self.assertEqual(w_in_w2, 2)
-
-        w2_in_w = self.word2.contains(self.word3)
-        self.assertEqual(w2_in_w, 0)
-
-        w_in_w = self.word3.contains(self.word3)
-        self.assertEqual(w_in_w, 1)
+        self.assertEqual(self.word3.contains(self.word2), 2)
+        self.assertEqual(self.word2.contains(self.word3), 0)
+        self.assertEqual(self.word3.contains(self.word3), 1)
 
 if __name__ == '__main__':
     unittest.main()
