@@ -37,9 +37,6 @@ class TestWord(unittest.TestCase):
         self.assertEqual(word.letters, {'c':1,'e':2,'l':1,'n':1,'o':1,'r':1,'s':1,'t':3,'u':1})
 
     def test_ldiff(self):
-        word = Word('aaabbcd')
-        word2 = Word('abc')
-
         diff = self.word1.ldiff(self.word1)
         self.assertEqual(diff, {'a':0, 'b':0, 'c':0, 'd':0})
 
@@ -50,9 +47,6 @@ class TestWord(unittest.TestCase):
         self.assertEqual(diff2, {'a':-2, 'b':-1, 'c':0, 'd':-1})
 
     def test_lsum(self):
-        word = Word('aaabbcd')
-        word2 = Word('abc')
-
         lsum = self.word1.lsum(self.word2)
         self.assertEqual(lsum, {'a':4, 'b':3, 'c':2, 'd':1})
 
@@ -60,16 +54,13 @@ class TestWord(unittest.TestCase):
         self.assertEqual(lsum2, {'a':4, 'b':3, 'c':2, 'd':1})
 
     def test_contains(self):
-        word = Word('aaaabbbccd')
-        word2 = Word('abc')
-
         w_in_w2 = self.word3.contains(self.word2)
         self.assertEqual(w_in_w2, 2)
 
         w2_in_w = self.word2.contains(self.word3)
         self.assertEqual(w2_in_w, 0)
 
-        w_in_w = word.contains(self.word3)
+        w_in_w = self.word3.contains(self.word3)
         self.assertEqual(w_in_w, 1)
 
 if __name__ == '__main__':
